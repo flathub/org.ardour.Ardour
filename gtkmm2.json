@@ -1,7 +1,7 @@
 {
     "name": "gtkmm2",
     "modules": [
-        "shared-modules/gtk2/gtk2.json",
+        "gtk2.json",
         {
             "name": "sigc++-2",
             "cleanup": [
@@ -12,9 +12,10 @@
             ],
             "sources" : [
                 {
+                    /* Ardour */
                     "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/libsigc++/2.9/libsigc++-2.9.3.tar.xz",
-                    "sha256" : "0bf9b301ad6198c550986c51150a646df198e8d1d235270c16486b0dda30097f"
+                    "url" : "https://download.gnome.org/sources/libsigc++/2.4/libsigc++-2.4.1.tar.xz",
+                    "sha256" : "540443492a68e77e30db8d425f3c0b1299c825bf974d9bfc31ae7efafedc19ec"
                 }
             ]
         },
@@ -30,9 +31,10 @@
             ],
             "sources": [
                 {
+                    /* Ardour */
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/cairomm/1.12/cairomm-1.12.0.tar.xz",
-                    "sha256": "a54ada8394a86182525c0762e6f50db6b9212a2109280d13ec6a0b29bfd1afe6"
+                    "url": "http://cairographics.org/releases/cairomm-1.11.2.tar.gz",
+                    "sha256": "ccf677098c1e08e189add0bd146f78498109f202575491a82f1815b6bc28008d"
                 }
             ]
         },
@@ -50,9 +52,14 @@
             ],
             "sources": [
                 {
+                    /* Ardour */
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/glibmm/2.58/glibmm-2.58.0.tar.xz",
-                    "sha256" : "d34189237b99e88228e6f557f7d6e62f767fe356f395a244f5ad0e486254b645"
+                    "url": "https://download.gnome.org/sources/glibmm/2.42/glibmm-2.42.0.tar.xz",
+                    "sha256" : "985083d97378d234da27a7243587cc0d186897a4b2d3c1286f794089be1a3397"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/glibmm-c++-fixes.diff"
                 }
             ]
         },
@@ -66,9 +73,10 @@
             ],
             "sources": [
                 {
+                    /* Ardour */
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/pangomm/2.40/pangomm-2.40.1.tar.xz",
-                    "sha256": "9762ee2a2d5781be6797448d4dd2383ce14907159b30bc12bf6b08e7227be3af"
+                    "url": "https://download.gnome.org/sources/pangomm/2.34/pangomm-2.34.0.tar.xz",
+                    "sha256": "0e82bbff62f626692a00f3772d8b17169a1842b8cc54d5f2ddb1fec2cede9e41"
                 }
             ]
         },
@@ -84,9 +92,10 @@
             ],
             "sources": [
                 {
+                    /* Ardour */
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/atkmm/2.24/atkmm-2.24.2.tar.xz",
-                    "sha256": "ff95385759e2af23828d4056356f25376cfabc41e690ac1df055371537e458bd"
+                    "url": "https://download.gnome.org/sources/atkmm/2.22/atkmm-2.22.7.tar.xz",
+                    "sha256": "bfbf846b409b4c5eb3a52fa32a13d86936021969406b3dcafd4dd05abd70f91b"
                 }
             ]
         }
@@ -102,9 +111,10 @@
     ],
     "sources": [
         {
+            /* Ardour */
             "type": "archive",
-            "url": "https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz",
-            "sha256": "0680a53b7bf90b4e4bf444d1d89e6df41c777e0bacc96e9c09fc4dd2f5fe6b72"
+            "url": "https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.4.tar.xz",
+            "sha256": "443a2ff3fcb42a915609f1779000390c640a6d7fd19ad8816e6161053696f5ee"
         }
     ]
 }
