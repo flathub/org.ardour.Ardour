@@ -1,0 +1,11 @@
+--- glibmm/glib/glibmm/threads.h	2014-09-22 15:18:48.000000000 -0400
++++ glibmm/glib/glibmm/threads.h-new	2020-07-18 20:14:44.318220773 -0400
+@@ -608,7 +608,7 @@
+    */
+   inline void replace(T* data);
+ 
+-  GPrivate* gobj() { return gobject_; }
++  GPrivate* gobj() { return &gobject_; }
+ 
+ private:
+   GPrivate gobject_;
