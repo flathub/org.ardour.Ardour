@@ -2,15 +2,17 @@
   "app-id": "org.ardour.Ardour",
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "19.08",
+  "runtime-version": "20.08beta",
   "command": "ardour6",
+  "branch": "beta",
+  "desktop-file-name-prefix": "(beta) ",
   "finish-args": [
     /* X11 + XShm access */
     "--share=ipc",
     "--socket=x11",
     /* Note playback */
     "--socket=pulseaudio",
-    /* MIDI */
+    /* MIDI + Alsa */
     "--device=all",
     /* Allow loading, saving files from the home dir (portals don’t work yet) */
     "--filesystem=home",
@@ -21,40 +23,16 @@
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
-    "--env=LV2_PATH=/app/extensions/Plugins/lv2:/app/extensions/Lv2Plugins/lv2",
-    "--env=LXVST_PATH=/app/extensions/Plugins/lxvst:/app/extensions/VstPlugins/lxvst",
-    "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa:/app/extensions/LadspaPlugins/ladspa"
+    "--env=LV2_PATH=/app/extensions/Plugins/lv2",
+    "--env=LXVST_PATH=/app/extensions/Plugins/lxvst",
+    "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa"
   ],
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
-      "version": "19.08",
+      "version": "20.08",
       "add-ld-path": "lib",
       "merge-dirs": "ladspa;lv2;lxvst",
-      "subdirectories": true,
-      "no-autodownload": true
-    },
-    "org.freedesktop.LinuxAudio.Lv2Plugins": {
-      "directory": "extensions/Lv2Plugins",
-      "version": "19.08",
-      "add-ld-path": "lib",
-      "merge-dirs": "lv2",
-      "subdirectories": true,
-      "no-autodownload": true
-    },
-    "org.freedesktop.LinuxAudio.LadspaPlugins": {
-      "directory": "extensions/LadspaPlugins",
-      "version": "19.08",
-      "add-ld-path": "lib",
-      "merge-dirs": "ladspa",
-      "subdirectories": true,
-      "no-autodownload": true
-    },
-    "org.freedesktop.LinuxAudio.VstPlugins": {
-      "directory": "extensions/VstPlugins",
-      "version": "19.08",
-      "add-ld-path": "lib",
-      "merge-dirs": "lxvst",
       "subdirectories": true,
       "no-autodownload": true
     }
@@ -235,10 +213,7 @@
         "install -Dm644 build/gtk2_ardour/ardour6.desktop /app/share/applications/${FLATPAK_ID}.desktop",
         "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour6/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
-        "install -d /app/extensions/Plugins",
-        "install -d /app/extensions/Lv2Plugins",
-        "install -d /app/extensions/LadspaPlugins",
-        "install -d /app/extensions/VstPlugins"
+        "install -d /app/extensions/Plugins"
       ],
       "sources": [
         {
