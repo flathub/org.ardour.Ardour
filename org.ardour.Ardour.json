@@ -20,6 +20,8 @@
     "--env=ALSA_CONFIG_PATH=",
     /* Device reservation */
     "--own-name=org.freedesktop.ReserveDevice1.*",
+    /* For jack */
+    "--socket=system-bus",
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
@@ -37,6 +39,9 @@
       "no-autodownload": true
     }
   },
+  "cleanup": [
+    "/lib/libjack*"
+  ],
   "modules": [
     "gtkmm2.json",
     {
@@ -199,11 +204,12 @@
         }
       ]
     },
+    "shared-modules/linux-audio/jack2.json",
     {
       "name": "ardour",
       "buildsystem": "simple",
       "build-commands": [
-        "python3 ./waf configure --prefix=/app --optimize --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio",
+        "python3 ./waf configure --prefix=/app --optimize --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
         "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf i18n -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf install"
