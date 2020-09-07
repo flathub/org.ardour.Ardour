@@ -16,13 +16,13 @@
     "--device=all",
     /* Allow loading, saving files from the home dir (portals don’t work yet) */
     "--filesystem=home",
-    "--filesystem=xdg-run/pipewire-0",
     /* On SuSE it seems to be necessary for sound to work */
     "--env=ALSA_CONFIG_PATH=",
     /* Device reservation */
     "--own-name=org.freedesktop.ReserveDevice1.*",
-    /* For jack */
+    /* For pipewire + JACK */
     "--socket=system-bus",
+    "--filesystem=xdg-run/pipewire-0",
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
