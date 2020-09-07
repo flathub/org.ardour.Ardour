@@ -500,8 +500,8 @@
         {
           "type": "git",
           "url": "git://github.com/Ardour/ardour.git",
-          "tag": "6.2",
-          "commit": "c8e92338fffa92e4ee0bc03ca8ca9ff93ed8b2b4"
+          "tag": "6.3",
+          "commit": "1b55648131888f443766b04896f2a8956df062f6"
         },
         {
           "type": "patch",
