@@ -275,7 +275,12 @@
     },
     {
       "name": "aubio",
-      "buildsystem": "autotools",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python3 ./waf configure --prefix=/app --libdir=/app/lib --enable-fftw3f --enable-complex --enable-samplerate",
+        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
+        "python3 ./waf install"
+      ],
       "cleanup": [
         "/bin",
         "/include",
@@ -284,16 +289,9 @@
       ],
       "sources": [
         {
-          /* Ardour */
           "type": "archive",
-          "url": "http://aubio.org/pub/aubio-0.3.2.tar.gz",
-          "sha256": "dc1387b048610a6141f523c27314b7a60bd299c3d6789c372445ddc6511512cd"
-        },
-        {
-          "type": "shell",
-          "commands": [
-            "cp -p /usr/share/automake-*/config.{sub,guess} ."
-          ]
+          "url": " http://aubio.org/pub/aubio-0.4.7.tar.bz2",
+          "sha256": "cbed4afec5ab3a1a6300c7e3af0a1369379aa94259f5e701a8ca905cdd9fa041"
         }
       ]
     },
