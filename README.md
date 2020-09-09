@@ -3,6 +3,14 @@ About Ardour flatpak
 
 Some notes about this Flatpak.
 
+Dependencies
+------------
+
+The dependencies for Ardour are non standard. We try to use what is
+listed at https://nightly.ardour.org/list.php#build_deps
+
+This is to provide the best experience to upstream binary builds.
+
 Plugins support
 ---------------
 

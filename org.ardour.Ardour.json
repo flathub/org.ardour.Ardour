@@ -16,13 +16,13 @@
     "--device=all",
     /* Allow loading, saving files from the home dir (portals don’t work yet) */
     "--filesystem=home",
-    "--filesystem=xdg-run/pipewire-0",
     /* On SuSE it seems to be necessary for sound to work */
     "--env=ALSA_CONFIG_PATH=",
     /* Device reservation */
     "--own-name=org.freedesktop.ReserveDevice1.*",
-    /* For jack */
+    /* For pipewire + JACK */
     "--socket=system-bus",
+    "--filesystem=xdg-run/pipewire-0",
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
@@ -60,14 +60,101 @@
       "sources" : [
         {
           "type" : "archive",
-          "url" : "https://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.tar.bz2",
-          "sha256" : "686affff989ac2488f79a97b9479efb9f2abae035b5ed4d8226de6857933fd3b"
+          "url" : "https://downloads.sourceforge.net/project/boost/boost/1.68.0/boost_1_68_0.tar.bz2",
+          "sha256" : "7f6130bc3cf65f56a618888ce9d5ea704fa10b462be126ad053e80e553d6d8b7"
         }
       ]
     },
-    "shared-modules/linux-audio/lrdf.json",
-    "shared-modules/linux-audio/liblo.json",
-    "shared-modules/linux-audio/lv2.json",
+    {
+      "name": "lrdf",
+      "rm-configure": true,
+      "cleanup": [
+        "/include",
+        "/lib/pkgconfig"
+      ],
+      "modules": [
+        {
+          "name": "raptor2",
+          "cleanup": [
+            "/include",
+            "/lib/pkgconfig"
+          ],
+          "config-opts": [
+            "--disable-documentation",
+            "--disable-static"
+          ],
+          "sources": [
+            {
+              /* Ardour */
+              "type": "archive",
+              "url": "http://download.librdf.org/source/raptor2-2.0.14.tar.gz",
+              "sha256": "cb447b7c684cbe60f1266d622691fd20fdcf7b91f4a470c6de5fc8e8961df1b2"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        {
+          /* Ardour */
+          "type": "archive",
+          "url": "https://github.com/x42/LRDF/archive/0.5.1-rg.tar.gz",
+          "sha256": "0ea638dea753ac54b5f19fb8a99ed6f64978b47ba7ee1eaf75377f9956f4ae4c"
+        },
+        {
+          "type": "script",
+          "commands": [
+            "rm -fr m4",
+            "autoreconf -fiv"
+          ],
+          "dest-filename": "autogen.sh"
+        }
+      ]
+    },
+    {
+      "name": "liblo",
+      "cleanup": [
+        "/bin",
+        "/include",
+        "/lib/pkgconfig",
+        "*.la",
+        "*.so"
+      ],
+      "sources": [
+        {
+          /* Ardour */
+          "type": "archive",
+          "url": "http://download.sf.net/sourceforge/liblo/liblo-0.28.tar.gz",
+          "sha256": "da94a9b67b93625354dd89ff7fe31e5297fc9400b6eaf7378c82ee1caf7db909"
+        }
+      ]
+    },
+    {
+      "name": "lv2",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python3 ./waf configure --prefix=$FLATPAK_DEST --lv2dir=$FLATPAK_DEST/lib/lv2 --copy-headers",
+        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
+        "python3 ./waf install"
+      ],
+      "cleanup": [
+        "/bin",
+        "/include",
+        "/lib/pkgconfig",
+        "/share"
+      ],
+      "sources": [
+        {
+          /* Ardour */
+          "type": "archive",
+          "url": "http://ardour.org/files/deps/lv2-1.18.0-gbf6b846.tar.bz2",
+          "sha256": "0f5a44854ef3d81047ea673910aa99a3ae1ee1b1614c6ef96f23efd14cbe9d15"
+        }
+      ],
+      "post-install": [
+        "install -Dm644 -t $FLATPAK_DEST/share/licenses/lv2 COPYING",
+        "ln -sf lv2.pc $FLATPAK_DEST/lib/pkgconfig/lv2core.pc"
+      ]
+    },
     {
       "name": "taglib",
       "buildsystem": "cmake-ninja",
@@ -81,9 +168,10 @@
       ],
       "sources": [
         {
+          /* Ardour */
           "type": "archive",
-          "url": "http://taglib.github.io/releases/taglib-1.11.1.tar.gz",
-          "sha256": "b6d1a5a610aae6ff39d93de5efd0fdc787aa9e9dc1e7026fa4c961b26563526b"
+          "url": "http://taglib.github.io/releases/taglib-1.9.1.tar.gz",
+          "sha256": "72d371cd1419a87ae200447a53bff2be219283071e80fd12337928cc967dc71a"
         }
       ]
     },
@@ -91,10 +179,10 @@
       "name": "vamp-plugin-sdk",
       "sources": [
         {
-          "type": "git",
-          "url": "https://github.com/c4dm/vamp-plugin-sdk",
-          "tag": "vamp-plugin-sdk-v2.7.1",
-          "commit": "10be490c9902d874e9d772d94bf91448303d9b06"
+          /* Ardour */
+          "type": "archive",
+          "url": "https://code.soundsoftware.ac.uk/attachments/download/2450/vamp-plugin-sdk-2.8.0.tar.gz",
+          "sha256": "dcc96ae894795822398789f251c2c7effa602fc60e9dd6c7a5c5d2e7a513526c"
         }
       ],
       "post-install": [
@@ -116,6 +204,7 @@
       },
       "sources": [
         {
+          /* Ardour */
           "type": "archive",
           "url": "http://code.breakfastquay.com/attachments/download/34/rubberband-1.8.1.tar.bz2",
           "sha256": "ff0c63b0b5ce41f937a8a3bc560f27918c5fe0b90c6bc1cb70829b86ada82b75"
@@ -131,15 +220,46 @@
         "*.so"
       ]
     },
-    "shared-modules/linux-audio/fftw3f.json",
+    {
+      "name": "fftw3f",
+      "config-opts": [
+        "--enable-threads",
+        "--enable-shared",
+        "--disable-static",
+        "--enable-float"
+      ],
+      "build-options": {
+        "arch": {
+          "x86_64": {
+            "config-opts": [
+              "--enable-sse2",
+              "--enable-avx",
+              "--enable-avx-128-fma"
+            ]
+          }
+        }
+      },
+      "sources": [
+        {
+          /* Ardour */
+          "type": "archive",
+          "url": "http://www.fftw.org/fftw-3.3.8.tar.gz",
+          "sha256": "6113262f6e92c5bd474f2875fa1b01054c4ad5040f6b0da7c03c98821d9ae303"
+        }
+      ],
+      "cleanup": [
+        "/bin",
+        "/include",
+        "/lib/cmake",
+        "/lib/pkgconfig",
+        "/share/man",
+        "*.la",
+        "*.so"
+      ]
+    },
     {
       "name": "aubio",
-      "buildsystem": "simple",
-      "build-commands": [
-        "python3 ./waf configure --prefix=/app --libdir=/app/lib --enable-fftw3f --enable-complex --enable-samplerate",
-        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-        "python3 ./waf install"
-      ],
+      "buildsystem": "autotools",
       "cleanup": [
         "/bin",
         "/include",
@@ -148,14 +268,148 @@
       ],
       "sources": [
         {
+          /* Ardour */
           "type": "archive",
-          "url": " http://aubio.org/pub/aubio-0.4.7.tar.bz2",
-          "sha256": "cbed4afec5ab3a1a6300c7e3af0a1369379aa94259f5e701a8ca905cdd9fa041"
+          "url": "http://aubio.org/pub/aubio-0.3.2.tar.gz",
+          "sha256": "dc1387b048610a6141f523c27314b7a60bd299c3d6789c372445ddc6511512cd"
+        },
+        {
+          "type": "shell",
+          "commands": [
+            "cp -p /usr/share/automake-*/config.{sub,guess} ."
+          ]
         }
       ]
     },
-    "shared-modules/libusb/libusb.json",
-    "shared-modules/linux-audio/lilv.json",
+    {
+      "name": "libusb",
+      "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "*.la",
+        "*.so"
+      ],
+      "no-parallel-make": true,
+      "config-opts": [
+          "--disable-static"
+      ],
+      "sources": [
+        {
+          /* Ardour */
+          "type": "archive",
+          "url": "https://github.com/libusb/libusb/releases/download/v1.0.20/libusb-1.0.20.tar.bz2",
+          "sha256" : "cb057190ba0a961768224e4dc6883104c6f945b2bf2ef90d7da39e7c1834f7ff"
+        }
+      ],
+      "post-install": [
+        "install -Dm644 COPYING /app/share/licenses/libusb/COPYING"
+      ],
+      "config-opts" : ["--disable-udev"]
+    },
+    {
+      "name": "lilv",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python3 ./waf configure --prefix=$FLATPAK_DEST",
+        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
+        "python3 ./waf install"
+      ],
+      "modules": [
+        {
+          "name": "serd",
+          "buildsystem": "simple",
+          "build-commands": [
+            "python3 ./waf configure --prefix=$FLATPAK_DEST",
+            "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
+            "python3 ./waf install"
+          ],
+          "sources": [
+            {
+              /* Ardour */
+              "type": "archive",
+              "url": "http://ardour.org/files/deps/serd-0.30.4-g227565f.tar.bz2",
+              "sha256": "35c2b093c6e802b1388bc7af0b45e4f5b2fb7d708cf7422234a51d294ab36078"
+            }
+          ],
+          "post-install": [
+            "install -Dm644 -t /app/share/licenses/serd COPYING"
+          ],
+          "cleanup": [
+            "/bin",
+            "/include",
+            "/lib/pkgconfig",
+            "/share/man"
+          ]
+        },
+        {
+          "name": "sord",
+          "buildsystem": "simple",
+          "build-commands": [
+            "python3 ./waf configure --prefix=$FLATPAK_DEST",
+            "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
+            "python3 ./waf install"
+          ],
+          "sources": [
+            {
+              /* Ardour */
+              "type": "archive",
+              "url": "http://ardour.org/files/deps/sord-0.16.4-g61d9657.tar.bz2",
+              "sha256": "f50a59d8494a42f247e650dae3501294b9a5deaa3d830e97ba32da91f4fa40fd"
+            }
+          ],
+          "post-install": [
+            "install -Dm644 -t /app/share/licenses/sord COPYING"
+          ],
+          "cleanup": [
+            "/bin",
+            "/include",
+            "/lib/pkgconfig",
+            "/share/man"
+          ]
+        },
+        {
+          "name": "sratom",
+          "buildsystem": "simple",
+          "build-commands": [
+            "python3 ./waf configure --prefix=$FLATPAK_DEST",
+            "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
+            "python3 ./waf install"
+          ],
+          "cleanup": [
+            "/include",
+            "/lib/pkgconfig"
+          ],
+          "sources": [
+            {
+              /* Ardour */
+              "type": "archive",
+              "url": "http://ardour.org/files/deps/sratom-0.6.4-g2ed87d0.tar.bz2",
+              "sha256": "2597ea00a62637003cb503aef5f00d52e322730b95cd35da16a5a7781c63b65a"
+            }
+          ],
+          "post-install": [
+            "install -Dm644 -t /app/share/licenses/sratom COPYING"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          /* Ardour */
+          "type": "archive",
+          "url": "http://ardour.org/files/deps/lilv-0.24.8-g20f2351.tar.bz2",
+          "sha256": "edda9b15d1fc5b4a1c3c31d0912590e2bd4319fcd0d6331d5b7fd134afaa4d67"
+        }
+      ],
+      "post-install": [
+        "install -Dm644 -t /app/share/licenses/lilv COPYING"
+      ],
+      "cleanup": [
+        "/bin",
+        "/etc",
+        "/lib/pkgconfig",
+        "/share/man"
+      ]
+    },
     {
       "name": "suil",
       "buildsystem": "simple",
@@ -170,9 +424,10 @@
       ],
       "sources": [
         {
+          /* Ardour */
           "type": "archive",
-          "url": "http://download.drobilla.net/suil-0.10.6.tar.bz2",
-          "sha256": "06fc70abaa33bd7089dd1051af46f89d378e8465d170347a3190132e6f009b7c"
+          "url": "http://ardour.org/files/deps/suil-0.10.7-gb402ae4.tar.bz2",
+          "sha256": "801d3c42f7a021d5aabef93f960156aa032ad9faca173dc8bd95a7a058f3637f"
         }
       ],
       "post-install": [
@@ -199,9 +454,10 @@
       ],
       "sources": [
         {
+          /* Ardour */
           "type": "archive",
-          "url": "https://github.com/warmcat/libwebsockets/archive/v4.0.1.tar.gz",
-          "sha256": "5b10ee0841a14303045617141370d5794b859b399084325c932dc0c03bf04c4b"
+          "url": "http://ardour.org/files/deps/libwebsockets-4.0.15.tar.gz",
+          "sha256": "5f0534aebed62f4cb722a34cd80936048eb374fd726d74fd0065977b46801e93"
         }
       ]
     },
@@ -226,8 +482,8 @@
         {
           "type": "git",
           "url": "git://github.com/Ardour/ardour.git",
-          "tag": "6.2",
-          "commit": "c8e92338fffa92e4ee0bc03ca8ca9ff93ed8b2b4"
+          "tag": "6.3",
+          "commit": "1b55648131888f443766b04896f2a8956df062f6"
         },
         {
           "type": "patch",

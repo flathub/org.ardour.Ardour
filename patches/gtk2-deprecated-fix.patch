@@ -1,0 +1,80 @@
+From e7a1afc74d1755bb458df01fc39f75ea26053d51 Mon Sep 17 00:00:00 2001
+From: Matthias Clasen <mclasen@redhat.com>
+Date: Sat, 5 Mar 2016 10:58:07 -0500
+Subject: [PATCH] Fix the build against current gdk-pixbuf
+
+The GdkPixdata APIs have been deprecated, lets not fail the build
+due to that.
+---
+ gtk/gtkgamma.c               | 1 +
+ gtk/gtkiconcache.c           | 2 ++
+ gtk/gtkiconcachevalidator.c  | 2 ++
+ gtk/gtktextbufferserialize.c | 1 +
+ gtk/updateiconcache.c        | 1 +
+ 5 files changed, 7 insertions(+)
+
+diff --git a/gtk/gtkgamma.c b/gtk/gtkgamma.c
+index 79e4d1c06b..1bf42752e7 100644
+--- a/gtk/gtkgamma.c
++++ b/gtk/gtkgamma.c
+@@ -31,6 +31,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
++#undef GDK_PIXBUF_DISABLE_DEPRECATED
+ #include <gdk-pixbuf/gdk-pixdata.h>
+ 
+ #include "gtkgamma.h"
+diff --git a/gtk/gtkiconcache.c b/gtk/gtkiconcache.c
+index 6a433fc97c..576dd948ec 100644
+--- a/gtk/gtkiconcache.c
++++ b/gtk/gtkiconcache.c
+@@ -25,6 +25,8 @@
+ #include "gtkalias.h"
+ 
+ #include <glib/gstdio.h>
++
++#undef GDK_PIXBUF_DISABLE_DEPRECATED
+ #include <gdk-pixbuf/gdk-pixdata.h>
+ 
+ #ifdef HAVE_UNISTD_H
+diff --git a/gtk/gtkiconcachevalidator.c b/gtk/gtkiconcachevalidator.c
+index e567474b2d..a23f017f8c 100644
+--- a/gtk/gtkiconcachevalidator.c
++++ b/gtk/gtkiconcachevalidator.c
+@@ -20,6 +20,8 @@
+ #include "gtkiconcachevalidator.h"
+ 
+ #include <glib.h>
++
++#undef GDK_PIXBUF_DISABLE_DEPRECATED
+ #include <gdk-pixbuf/gdk-pixdata.h>
+ 
+ 
+diff --git a/gtk/gtktextbufferserialize.c b/gtk/gtktextbufferserialize.c
+index 0f22cdb7d0..e41afbf4bc 100644
+--- a/gtk/gtktextbufferserialize.c
++++ b/gtk/gtktextbufferserialize.c
+@@ -29,6 +29,7 @@
+ #include <string.h>
+ #include <stdlib.h>
+ 
++#undef GDK_PIXBUF_DISABLE_DEPRECATED
+ #include "gdk-pixbuf/gdk-pixdata.h"
+ #include "gtktextbufferserialize.h"
+ #include "gtkintl.h"
+diff --git a/gtk/updateiconcache.c b/gtk/updateiconcache.c
+index 3ed3253835..32c8f4112a 100644
+--- a/gtk/updateiconcache.c
++++ b/gtk/updateiconcache.c
+@@ -39,6 +39,7 @@
+ 
+ #include <glib.h>
+ #include <glib/gstdio.h>
++#undef GDK_PIXBUF_DISABLE_DEPRECATED
+ #include <gdk-pixbuf/gdk-pixdata.h>
+ #include <glib/gi18n.h>
+ #include "gtkiconcachevalidator.h"
+-- 
+GitLab
+
