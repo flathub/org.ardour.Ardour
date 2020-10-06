@@ -2,7 +2,7 @@
   "app-id": "org.ardour.Ardour",
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "19.08",
+  "runtime-version": "20.08",
   "command": "ardour6",
   "finish-args": [
     /* X11 + XShm access */
@@ -10,7 +10,7 @@
     "--socket=x11",
     /* Note playback */
     "--socket=pulseaudio",
-    /* MIDI */
+    /* MIDI + Alsa */
     "--device=all",
     /* Allow loading, saving files from the home dir (portals don’t work yet) */
     "--filesystem=home",
@@ -21,44 +21,23 @@
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
-    "--env=LV2_PATH=/app/extensions/Plugins/lv2:/app/extensions/Lv2Plugins/lv2",
-    "--env=LXVST_PATH=/app/extensions/Plugins/lxvst:/app/extensions/VstPlugins/lxvst",
-    "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa:/app/extensions/LadspaPlugins/ladspa"
+    "--env=LV2_PATH=/app/extensions/Plugins/lv2",
+    "--env=LXVST_PATH=/app/extensions/Plugins/lxvst",
+    "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa"
   ],
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
-      "version": "19.08",
+      "version": "20.08",
       "add-ld-path": "lib",
       "merge-dirs": "ladspa;lv2;lxvst",
       "subdirectories": true,
       "no-autodownload": true
-    },
-    "org.freedesktop.LinuxAudio.Lv2Plugins": {
-      "directory": "extensions/Lv2Plugins",
-      "version": "19.08",
-      "add-ld-path": "lib",
-      "merge-dirs": "lv2",
-      "subdirectories": true,
-      "no-autodownload": true
-    },
-    "org.freedesktop.LinuxAudio.LadspaPlugins": {
-      "directory": "extensions/LadspaPlugins",
-      "version": "19.08",
-      "add-ld-path": "lib",
-      "merge-dirs": "ladspa",
-      "subdirectories": true,
-      "no-autodownload": true
-    },
-    "org.freedesktop.LinuxAudio.VstPlugins": {
-      "directory": "extensions/VstPlugins",
-      "version": "19.08",
-      "add-ld-path": "lib",
-      "merge-dirs": "lxvst",
-      "subdirectories": true,
-      "no-autodownload": true
     }
   },
+  "cleanup": [
+    "/lib/libjack*"
+  ],
   "modules": [
     "gtkmm2.json",
     {
@@ -275,12 +254,7 @@
     },
     {
       "name": "aubio",
-      "buildsystem": "simple",
-      "build-commands": [
-        "python3 ./waf configure --prefix=/app --libdir=/app/lib --enable-fftw3f --enable-complex --enable-samplerate",
-        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-        "python3 ./waf install"
-      ],
+      "buildsystem": "autotools",
       "cleanup": [
         "/bin",
         "/include",
@@ -289,9 +263,16 @@
       ],
       "sources": [
         {
+          /* Ardour */
           "type": "archive",
-          "url": " http://aubio.org/pub/aubio-0.4.7.tar.bz2",
-          "sha256": "cbed4afec5ab3a1a6300c7e3af0a1369379aa94259f5e701a8ca905cdd9fa041"
+          "url": "http://aubio.org/pub/aubio-0.3.2.tar.gz",
+          "sha256": "dc1387b048610a6141f523c27314b7a60bd299c3d6789c372445ddc6511512cd"
+        },
+        {
+          "type": "shell",
+          "commands": [
+            "cp -p /usr/share/automake-*/config.{sub,guess} ."
+          ]
         }
       ]
     },
@@ -475,6 +456,7 @@
         }
       ]
     },
+    "shared-modules/linux-audio/jack2.json",
     {
       "name": "ardour",
       "buildsystem": "simple",
@@ -489,10 +471,7 @@
         "install -Dm644 build/gtk2_ardour/ardour6.desktop /app/share/applications/${FLATPAK_ID}.desktop",
         "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour6/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
-        "install -d /app/extensions/Plugins",
-        "install -d /app/extensions/Lv2Plugins",
-        "install -d /app/extensions/LadspaPlugins",
-        "install -d /app/extensions/VstPlugins"
+        "install -d /app/extensions/Plugins"
       ],
       "sources": [
         {
