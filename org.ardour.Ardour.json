@@ -23,6 +23,7 @@
     /* extensions LV2 */
     "--env=LV2_PATH=/app/extensions/Plugins/lv2",
     "--env=LXVST_PATH=/app/extensions/Plugins/lxvst",
+    "--env=VST3_PATH=/app/extensions/Plugins/vst3",
     "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa"
   ],
   "add-extensions": {
@@ -30,7 +31,7 @@
       "directory": "extensions/Plugins",
       "version": "20.08",
       "add-ld-path": "lib",
-      "merge-dirs": "ladspa;lv2;lxvst",
+      "merge-dirs": "ladspa;lv2;lxvst;vst3",
       "subdirectories": true,
       "no-autodownload": true
     }
@@ -477,8 +478,8 @@
         {
           "type": "git",
           "url": "git://github.com/Ardour/ardour.git",
-          "tag": "6.3",
-          "commit": "1b55648131888f443766b04896f2a8956df062f6"
+          "tag": "6.4",
+          "commit": "a5291222493a2d620246fce3c2eede73d579364d"
         },
         {
           "type": "patch",
