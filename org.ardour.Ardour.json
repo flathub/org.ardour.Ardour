@@ -115,6 +115,10 @@
         "*.la",
         "*.so"
       ],
+      "build-options": {
+          "cflags": "-Wno-error=stringop-truncation",
+          "cxxflags": "-Wno-error=stringop-truncation"
+      },
       "sources": [
         {
           /* Ardour */
