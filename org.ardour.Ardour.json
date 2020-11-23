@@ -482,8 +482,8 @@
         {
           "type": "git",
           "url": "git://github.com/Ardour/ardour.git",
-          "tag": "6.4",
-          "commit": "a5291222493a2d620246fce3c2eede73d579364d"
+          "tag": "6.5",
+          "commit": "80e3c191e412be7da5e0d05856e14f2f208b3035"
         },
         {
           "type": "patch",
