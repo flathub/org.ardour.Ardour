@@ -236,6 +236,11 @@
               "--enable-avx",
               "--enable-avx-128-fma"
             ]
+          },
+          "aarch64": {
+            "config-opts": [
+              "--enable-neon"
+            ]
           }
         }
       },
