@@ -30,6 +30,13 @@
     "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa"
   ],
   "add-extensions": {
+    "org.freedesktop.Platform.ffmpeg-full": {
+      "directory": "lib/ffmpeg",
+      "add-ld-path": ".",
+      "version": "20.08",
+      "autodownload": true,
+      "autodelete": false
+    },
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
       "version": "20.08",
@@ -479,6 +486,54 @@
     },
     "shared-modules/linux-audio/jack2.json",
     {
+      "name": "xjadeo",
+      "cleanup": [
+        "/share/man"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.9/xjadeo-0.8.9.tar.gz",
+          "sha256": "47b7aeb9d0a82178a72944bac31b3934afee620fb05eefb625f6f3f085d266f1"
+        },
+        {
+          "type": "patch",
+          "path": "patches/xjadeo-c-fix.patch"
+        }
+      ]
+    },
+    {
+      "name": "harvid",
+      "buildsystem": "simple",
+      "build-options": {
+        "env": {
+          "PREFIX": "${FLATPAK_DEST}"
+        }
+      },
+      "build-commands": [
+        "make",
+        "make install"
+      ],
+      "cleanup": [
+        "/share/man"
+      ],
+      "post-install": [
+        "ln -s /usr/bin/ffmpeg ${FLATPAK_DEST}/bin/ffmpeg_harvid",
+        "ln -s /usr/bin/ffprobe ${FLATPAK_DEST}/bin/ffprobe_harvid"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/x42/harvid/archive/v0.8.3.tar.gz",
+          "sha256": "7ade8a4eb4d6ed42d6a95cda5102ae2aada14f8cd2c501c36de8d9c599ffe73d"
+        },
+        {
+          "type": "patch",
+          "path": "patches/harvid-build-fix.patch"
+        }
+      ]
+    },
+    {
       "name": "ardour",
       "buildsystem": "simple",
       "build-commands": [
@@ -493,7 +548,8 @@
         "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
         "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour6/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
-        "install -d /app/extensions/Plugins"
+        "install -d /app/extensions/Plugins",
+        "install -d /app/lib/ffmpeg"
       ],
       "sources": [
         {
