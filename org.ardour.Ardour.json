@@ -69,6 +69,7 @@
       "rm-configure": true,
       "cleanup": [
         "/include",
+        "/share/man",
         "/lib/pkgconfig"
       ],
       "modules": [
@@ -218,6 +219,7 @@
       ],
       "cleanup": [
         "/bin",
+        "/include",
         "/share/ladspa",
         "*.a",
         "*.so"
@@ -414,6 +416,7 @@
       "cleanup": [
         "/bin",
         "/etc",
+        "/include",
         "/lib/pkgconfig",
         "/share/man"
       ]
@@ -444,6 +447,7 @@
       "cleanup": [
         "/bin",
         "/etc",
+        "/include",
         "/share/man"
       ]
     },
@@ -474,7 +478,7 @@
       "name": "ardour",
       "buildsystem": "simple",
       "build-commands": [
-        "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio",
+        "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
         "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf i18n -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf install"
