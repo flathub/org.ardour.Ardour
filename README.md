@@ -29,13 +29,8 @@ You need to install the package `pipewire-jack-audio-connection-kit` or
 equivalent in your distro. This might mean that you have to uninstall
 JACK if you had it installed.
 
-Then, open Ardour and it will work with the Pipewire implementation of
-JACK. If it doesn't work out of the box, just prefix launching Ardour
-with `pw-jack`, like here:
-
-```sh
-pw-jack flatpak run org.ardour.Ardour
-```
+Then, just open Ardour and it will work with the Pipewire implementation of
+JACK, out of the box.
 
 ALSA Device reservation
 -----------------------
