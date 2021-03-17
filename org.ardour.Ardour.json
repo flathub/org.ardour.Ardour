@@ -30,13 +30,6 @@
     "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa"
   ],
   "add-extensions": {
-    "org.freedesktop.Platform.ffmpeg-full": {
-      "directory": "lib/ffmpeg",
-      "add-ld-path": ".",
-      "version": "20.08",
-      "autodownload": true,
-      "autodelete": false
-    },
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
       "version": "20.08",
@@ -503,6 +496,25 @@
       ]
     },
     {
+      "name": "ffmpeg",
+      "config-opts": [
+        "--enable-shared",
+        "--disable-static",
+        "--enable-gnutls",
+        "--disable-doc"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://www.ffmpeg.org/releases/ffmpeg-4.2.3.tar.xz",
+          "sha256": "9df6c90aed1337634c1fb026fb01c154c29c82a64ea71291ff2da9aacb9aad31"
+        }
+      ],
+      "cleanup": [
+        "/share/ffmpeg/examples"
+      ]
+    },
+    {
       "name": "harvid",
       "buildsystem": "simple",
       "build-options": {
@@ -518,8 +530,8 @@
         "/share/man"
       ],
       "post-install": [
-        "ln -s /usr/bin/ffmpeg ${FLATPAK_DEST}/bin/ffmpeg_harvid",
-        "ln -s /usr/bin/ffprobe ${FLATPAK_DEST}/bin/ffprobe_harvid"
+        "ln -s ${FLATPAK_DEST}/bin/ffmpeg ${FLATPAK_DEST}/bin/ffmpeg_harvid",
+        "ln -s ${FLATPAK_DEST}/bin/ffprobe ${FLATPAK_DEST}/bin/ffprobe_harvid"
       ],
       "sources": [
         {
@@ -548,8 +560,7 @@
         "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
         "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour6/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
-        "install -d /app/extensions/Plugins",
-        "install -d /app/lib/ffmpeg"
+        "install -d /app/extensions/Plugins"
       ],
       "sources": [
         {
