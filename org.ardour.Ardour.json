@@ -4,6 +4,8 @@
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "20.08",
   "command": "ardour6",
+  "rename-desktop-file": "ardour6.desktop",
+  "rename-appdata-file": "ardour6.appdata.xml",
   "finish-args": [
     /* X11 + XShm access */
     "--share=ipc",
@@ -556,8 +558,8 @@
       ],
       "post-install": [
         "desktop-file-edit --set-key=Name --set-value=\"Ardour 6\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v6 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour6.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour6.desktop /app/share/applications/${FLATPAK_ID}.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
+        "install -Dm644 build/gtk2_ardour/ardour6.desktop /app/share/applications",
+        "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/metainfo",
         "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour6/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
         "install -d /app/extensions/Plugins"
