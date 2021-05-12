@@ -26,7 +26,7 @@
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
-    "--env=LV2_PATH=/app/extensions/Plugins/lv2",
+    "--env=LV2_PATH=$HOME/.lv2:/app/extensions/Plugins/lv2",
     "--env=LXVST_PATH=/app/extensions/Plugins/lxvst",
     "--env=VST3_PATH=/app/extensions/Plugins/vst3",
     "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa"
@@ -42,7 +42,9 @@
     }
   },
   "cleanup": [
-    "/lib/libjack*"
+    "/lib/libjack*",
+    "/lib/jack",
+    "/lib/pkgconfig"
   ],
   "modules": [
     "gtkmm2.json",
@@ -71,6 +73,7 @@
       "rm-configure": true,
       "cleanup": [
         "/include",
+        "/share/man",
         "/lib/pkgconfig"
       ],
       "modules": [
@@ -78,7 +81,8 @@
           "name": "raptor2",
           "cleanup": [
             "/include",
-            "/lib/pkgconfig"
+            "/lib/pkgconfig",
+            "/share/gtk-doc"
           ],
           "config-opts": [
             "--disable-documentation",
@@ -151,8 +155,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/lv2-1.18.0-gbf6b846.tar.bz2",
-          "sha256": "0f5a44854ef3d81047ea673910aa99a3ae1ee1b1614c6ef96f23efd14cbe9d15"
+          "url": "http://ardour.org/files/deps/lv2-1.18.1-ga587405.tar.bz2",
+          "sha256": "3ced575e8673d85658cda4978a6bc1195655e1806efbf170cd8bd276b7a56c8d"
         }
       ],
       "post-install": [
@@ -220,6 +224,7 @@
       ],
       "cleanup": [
         "/bin",
+        "/include",
         "/share/ladspa",
         "*.a",
         "*.so"
@@ -240,6 +245,11 @@
               "--enable-sse2",
               "--enable-avx",
               "--enable-avx-128-fma"
+            ]
+          },
+          "aarch64": {
+            "config-opts": [
+              "--enable-neon"
             ]
           }
         }
@@ -332,8 +342,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/serd-0.30.4-g227565f.tar.bz2",
-              "sha256": "35c2b093c6e802b1388bc7af0b45e4f5b2fb7d708cf7422234a51d294ab36078"
+              "url": "http://ardour.org/files/deps/serd-0.30.7-gafc2c16.tar.bz2",
+              "sha256": "7814cba4bc9bdfb1fd6db6dcff5a4e42d88de0bd064c4cb1ff74f820be8508a6"
             }
           ],
           "post-install": [
@@ -358,8 +368,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/sord-0.16.4-g61d9657.tar.bz2",
-              "sha256": "f50a59d8494a42f247e650dae3501294b9a5deaa3d830e97ba32da91f4fa40fd"
+              "url": "http://ardour.org/files/deps/sord-0.16.7-gb6b1156.tar.bz2",
+              "sha256": "730b0c23c78141c07736d5bc693f5164e5f536326125f62ae6672493c8415d78"
             }
           ],
           "post-install": [
@@ -388,8 +398,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/sratom-0.6.4-g2ed87d0.tar.bz2",
-              "sha256": "2597ea00a62637003cb503aef5f00d52e322730b95cd35da16a5a7781c63b65a"
+              "url": "http://ardour.org/files/deps/sratom-0.6.7-g397ddf1.tar.bz2",
+              "sha256": "aa2ce47e3abbbdb30154942079d32de80ebd0b44735c9049a384365175a2b9bc"
             }
           ],
           "post-install": [
@@ -401,8 +411,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/lilv-0.24.8-g20f2351.tar.bz2",
-          "sha256": "edda9b15d1fc5b4a1c3c31d0912590e2bd4319fcd0d6331d5b7fd134afaa4d67"
+          "url": "http://ardour.org/files/deps/lilv-0.24.11-g13d7c05.tar.bz2",
+          "sha256": "45e341605312ccf320d287b005814843455975943746017cb3ccf8763783a39f"
         }
       ],
       "post-install": [
@@ -411,6 +421,7 @@
       "cleanup": [
         "/bin",
         "/etc",
+        "/include",
         "/lib/pkgconfig",
         "/share/man"
       ]
@@ -431,8 +442,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/suil-0.10.7-gb402ae4.tar.bz2",
-          "sha256": "801d3c42f7a021d5aabef93f960156aa032ad9faca173dc8bd95a7a058f3637f"
+          "url": "http://ardour.org/files/deps/suil-0.10.8-g05c2afb.tar.bz2",
+          "sha256": "80d3626e76f0c23cdf7879f92095e970411eaca59bdda0330f27299c4b4109b2"
         }
       ],
       "post-install": [
@@ -441,6 +452,7 @@
       "cleanup": [
         "/bin",
         "/etc",
+        "/include",
         "/share/man"
       ]
     },
@@ -450,6 +462,7 @@
       "cleanup": [
         "/bin",
         "/include",
+        "/lib/cmake",
         "/share/libwebsockets-test-server",
         "*.a",
         "*.so"
@@ -468,10 +481,77 @@
     },
     "shared-modules/linux-audio/jack2.json",
     {
+      "name": "xjadeo",
+      "cleanup": [
+        "/share/man"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.9/xjadeo-0.8.9.tar.gz",
+          "sha256": "47b7aeb9d0a82178a72944bac31b3934afee620fb05eefb625f6f3f085d266f1"
+        },
+        {
+          "type": "patch",
+          "path": "patches/xjadeo-c-fix.patch"
+        }
+      ]
+    },
+    {
+      "name": "ffmpeg",
+      "config-opts": [
+        "--enable-shared",
+        "--disable-static",
+        "--enable-gnutls",
+        "--disable-doc"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://www.ffmpeg.org/releases/ffmpeg-4.2.3.tar.xz",
+          "sha256": "9df6c90aed1337634c1fb026fb01c154c29c82a64ea71291ff2da9aacb9aad31"
+        }
+      ],
+      "cleanup": [
+        "/share/ffmpeg/examples"
+      ]
+    },
+    {
+      "name": "harvid",
+      "buildsystem": "simple",
+      "build-options": {
+        "env": {
+          "PREFIX": "${FLATPAK_DEST}"
+        }
+      },
+      "build-commands": [
+        "make",
+        "make install"
+      ],
+      "cleanup": [
+        "/share/man"
+      ],
+      "post-install": [
+        "ln -s ${FLATPAK_DEST}/bin/ffmpeg ${FLATPAK_DEST}/bin/ffmpeg_harvid",
+        "ln -s ${FLATPAK_DEST}/bin/ffprobe ${FLATPAK_DEST}/bin/ffprobe_harvid"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/x42/harvid/archive/v0.8.3.tar.gz",
+          "sha256": "7ade8a4eb4d6ed42d6a95cda5102ae2aada14f8cd2c501c36de8d9c599ffe73d"
+        },
+        {
+          "type": "patch",
+          "path": "patches/harvid-build-fix.patch"
+        }
+      ]
+    },
+    {
       "name": "ardour",
       "buildsystem": "simple",
       "build-commands": [
-        "python3 ./waf configure --prefix=/app --optimize --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
+        "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
         "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf i18n -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf install"
@@ -480,6 +560,7 @@
         "desktop-file-edit --set-key=Name --set-value=\"Ardour 6\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v6 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour6.desktop",
         "install -Dm644 build/gtk2_ardour/ardour6.desktop /app/share/applications/${FLATPAK_ID}.desktop",
         "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
+        "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour6/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
         "install -d /app/extensions/Plugins"
       ],
@@ -487,12 +568,16 @@
         {
           "type": "git",
           "url": "git://github.com/Ardour/ardour.git",
-          "tag": "6.5",
-          "commit": "80e3c191e412be7da5e0d05856e14f2f208b3035"
+          "tag": "6.6",
+          "commit": "e4e21f4d073ab00b1a0bb6ff6ca49f28b02fd68a"
         },
         {
           "type": "patch",
           "path": "patches/ardour5-5.12.0-appdata-flatpak.patch"
+        },
+        {
+          "type": "patch",
+          "path": "patches/ardour-6.6-vst3-crash.patch"
         }
       ]
     }
