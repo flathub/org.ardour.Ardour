@@ -19,8 +19,8 @@
     /* Device reservation */
     "--own-name=org.freedesktop.ReserveDevice1.*",
     /* For pipewire + JACK */
-    "--socket=system-bus",
     "--filesystem=xdg-run/pipewire-0",
+    "--system-talk-name=org.freedesktop.RealtimeKit1",
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
@@ -40,8 +40,6 @@
     }
   },
   "cleanup": [
-    "/lib/libjack*",
-    "/lib/jack",
     "/lib/pkgconfig"
   ],
   "modules": [
@@ -566,16 +564,16 @@
         {
           "type": "git",
           "url": "git://github.com/Ardour/ardour.git",
-          "tag": "6.6",
-          "commit": "e4e21f4d073ab00b1a0bb6ff6ca49f28b02fd68a"
+          "tag": "6.7",
+          "commit": "6733a847eeb55b4640a65a8bfebac8c7166521c8",
+          "x-checker-data": {
+            "type": "git",
+            "tag-pattern": "^([\\d.]+)$"
+          }
         },
         {
           "type": "patch",
           "path": "patches/ardour5-5.12.0-appdata-flatpak.patch"
-        },
-        {
-          "type": "patch",
-          "path": "patches/ardour-6.6-vst3-crash.patch"
         }
       ]
     }
