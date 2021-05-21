@@ -151,8 +151,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/lv2-1.18.1-ga587405.tar.bz2",
-          "sha256": "3ced575e8673d85658cda4978a6bc1195655e1806efbf170cd8bd276b7a56c8d"
+          "url": "http://ardour.org/files/deps/lv2-1.18.2-g611759d.tar.bz2",
+          "sha256": "e0f152a3d7310f7fc1c233a2c646b319d4615a821efe29bf7449283cb37c70ce"
         }
       ],
       "post-install": [
@@ -338,8 +338,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/serd-0.30.7-gafc2c16.tar.bz2",
-              "sha256": "7814cba4bc9bdfb1fd6db6dcff5a4e42d88de0bd064c4cb1ff74f820be8508a6"
+              "url": "http://ardour.org/files/deps/serd-0.30.11-g36f1cecc.tar.bz2",
+              "sha256": "76afe98511351c3c50010d9f145cfd1f10b54a9565cb7889f0ca5158da806598"
             }
           ],
           "post-install": [
@@ -364,8 +364,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/sord-0.16.7-gb6b1156.tar.bz2",
-              "sha256": "730b0c23c78141c07736d5bc693f5164e5f536326125f62ae6672493c8415d78"
+              "url": "http://ardour.org/files/deps/sord-0.16.9-gd2efdb2.tar.bz2",
+              "sha256": "40168fc08f3b45fe2cc978bf3a2b14607dc8be2c59598bcac1523cbe59b9ba1a"
             }
           ],
           "post-install": [
@@ -394,8 +394,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/sratom-0.6.7-g397ddf1.tar.bz2",
-              "sha256": "aa2ce47e3abbbdb30154942079d32de80ebd0b44735c9049a384365175a2b9bc"
+              "url": "http://ardour.org/files/deps/sratom-0.6.8-gc46452c.tar.bz2",
+              "sha256": "9ca25888964d062fe9c7390e23fcb0de215da0f433ce032e8e570ad9bd772ed9"
             }
           ],
           "post-install": [
@@ -407,8 +407,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/lilv-0.24.11-g13d7c05.tar.bz2",
-          "sha256": "45e341605312ccf320d287b005814843455975943746017cb3ccf8763783a39f"
+          "url": "http://ardour.org/files/deps/lilv-0.24.13-g71a2ff5.tar.bz2",
+          "sha256": "fd3053f744d04bbd72aff8549576fc115499fd806da0f32d1ee3b9ef65a1e77c"
         }
       ],
       "post-install": [
