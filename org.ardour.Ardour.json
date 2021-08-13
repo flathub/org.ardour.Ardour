@@ -302,7 +302,8 @@
       ],
       "no-parallel-make": true,
       "config-opts": [
-          "--disable-static"
+          "--disable-static",
+          "--disable-udev"
       ],
       "sources": [
         {
@@ -314,8 +315,7 @@
       ],
       "post-install": [
         "install -Dm644 COPYING /app/share/licenses/libusb/COPYING"
-      ],
-      "config-opts" : ["--disable-udev"]
+      ]
     },
     {
       "name": "lilv",
@@ -431,8 +431,11 @@
         "python3 ./waf install"
       ],
       "cleanup": [
+        "/bin",
+        "/etc",
         "/include",
-        "/lib/pkgconfig"
+        "/lib/pkgconfig",
+        "/share/man"
       ],
       "sources": [
         {
@@ -444,12 +447,6 @@
       ],
       "post-install": [
         "install -Dm644 -t /app/share/licenses/suil COPYING"
-      ],
-      "cleanup": [
-        "/bin",
-        "/etc",
-        "/include",
-        "/share/man"
       ]
     },
     {
