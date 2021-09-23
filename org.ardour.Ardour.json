@@ -543,6 +543,9 @@
     {
       "name": "ardour",
       "buildsystem": "simple",
+      "build-options": {
+          "cxxflags": "-std=gnu++14"
+      },
       "build-commands": [
         "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
         "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
