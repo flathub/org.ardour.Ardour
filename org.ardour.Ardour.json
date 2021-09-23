@@ -2,7 +2,7 @@
   "app-id": "org.ardour.Ardour",
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "20.08",
+  "runtime-version": "21.08",
   "command": "ardour6",
   "finish-args": [
     /* X11 + XShm access */
@@ -32,7 +32,7 @@
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
-      "version": "20.08",
+      "version": "21.08",
       "add-ld-path": "lib",
       "merge-dirs": "ladspa;lv2;lxvst;vst3",
       "subdirectories": true,
