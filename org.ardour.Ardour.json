@@ -24,7 +24,7 @@
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     /* extensions LV2 */
-    "--env=LV2_PATH=$HOME/.lv2:/app/extensions/Plugins/lv2",
+    "--env=LV2_PATH=$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2",
     "--env=LXVST_PATH=/app/extensions/Plugins/lxvst",
     "--env=VST3_PATH=/app/extensions/Plugins/vst3",
     "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa"
