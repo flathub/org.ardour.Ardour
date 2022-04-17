@@ -562,7 +562,7 @@
       "sources": [
         {
           "type": "git",
-          "url": "git://github.com/Ardour/ardour.git",
+          "url": "https://github.com/Ardour/ardour.git",
           "tag": "6.9",
           "commit": "945c8f288077565fe3de32c6ac0cb50e286722e4"
         },
