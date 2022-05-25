@@ -8,7 +8,7 @@
    <metadata_license>CC0-1.0</metadata_license>
    <project_license>GPL-2.0+</project_license>
    <name>Ardour</name>
-@@ -18,6 +18,8 @@
+@@ -18,14 +18,16 @@
        composers.
      </p>
    </description>
@@ -17,3 +17,13 @@
    <url type="homepage">http://ardour.org</url>
    <screenshots>
        <screenshot type="default">
+-        <image>http://community.ardour.org/files/images/ardour-editor-window-1600x900.png</image>
++        <image>https://ardour.org/images/big_editor4.png</image>
+         <caption>The Editor window where you can arrange audio and MIDI data along a timeline</caption>
+       </screenshot>
+       <screenshot>
+-        <image>http://community.ardour.org/files/images/ardour-mixer-window-1600x900.png</image>
++        <image>https://ardour.org/images/big_mixer4.png</image>
+         <caption>The Mixer window which includes channel strips for each track and bus</caption>
+       </screenshot>
+   </screenshots>
