@@ -488,9 +488,12 @@
         }
       ]
     },
+    "shared-modules/lame/lame-3.99.5.json",
     {
       "name": "ffmpeg",
       "config-opts": [
+        "--enable-libopus",
+        "--enable-libmp3lame",
         "--enable-shared",
         "--disable-static",
         "--enable-gnutls",
