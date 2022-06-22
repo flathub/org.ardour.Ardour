@@ -5,7 +5,8 @@
         {
             "name": "sigc++-2",
             "cleanup": [
-                "/include"
+                "/include",
+                "/lib/sigc++-2.0"
             ],
             "build-options": {
                 "cxxflags": "-std=gnu++14"
@@ -75,7 +76,8 @@
         {
             "name": "pangomm",
             "cleanup": [
-                "/include"
+                "/include",
+                "/lib/pangomm-1.4"
             ],
             "build-options": {
                 "cxxflags": "-std=gnu++14"
