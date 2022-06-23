@@ -180,6 +180,7 @@
     },
     {
       "name": "vamp-plugin-sdk",
+      "no-parallel-make": true,
       "sources": [
         {
           /* Ardour */
