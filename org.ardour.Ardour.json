@@ -569,7 +569,7 @@
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
           "disable-shallow-clone": true,
-          "commit": "74ee7ee091958683725aa1bc9ef0cb027b49718b"
+          "commit": "191dbf7c341d3e58c9bebfe9186332bf5cf49e10"
         },
         {
           "type": "patch",
