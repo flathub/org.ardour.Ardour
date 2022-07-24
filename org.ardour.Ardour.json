@@ -121,8 +121,8 @@
         "*.so"
       ],
       "build-options": {
-          "cflags": "-Wno-error=stringop-truncation",
-          "cxxflags": "-Wno-error=stringop-truncation"
+          "cflags": "-Wno-error=stringop-truncation -Wno-error=maybe-uninitialized",
+          "cxxflags": "-Wno-error=stringop-truncation -Wno-error=maybe-uninitialized"
       },
       "sources": [
         {
@@ -460,6 +460,9 @@
         "*.a",
         "*.so"
       ],
+      "build-options": {
+        "cflags": "-Wno-error=deprecated-declarations"
+      },
       "config-opts": [
         "-DLWS_WITH_EXTERNAL_POLL=ON"
       ],
@@ -473,23 +476,6 @@
       ]
     },
     "shared-modules/linux-audio/jack2.json",
-    {
-      "name": "xjadeo",
-      "cleanup": [
-        "/share/man"
-      ],
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.9/xjadeo-0.8.9.tar.gz",
-          "sha256": "47b7aeb9d0a82178a72944bac31b3934afee620fb05eefb625f6f3f085d266f1"
-        },
-        {
-          "type": "patch",
-          "path": "patches/xjadeo-c-fix.patch"
-        }
-      ]
-    },
     "shared-modules/lame/lame-3.99.5.json",
     {
       "name": "ffmpeg",
@@ -510,6 +496,23 @@
       ],
       "cleanup": [
         "/share/ffmpeg/examples"
+      ]
+    },
+    {
+      "name": "xjadeo",
+      "cleanup": [
+        "/share/man"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.9/xjadeo-0.8.9.tar.gz",
+          "sha256": "47b7aeb9d0a82178a72944bac31b3934afee620fb05eefb625f6f3f085d266f1"
+        },
+        {
+          "type": "patch",
+          "path": "patches/xjadeo-c-fix.patch"
+        }
       ]
     },
     {
