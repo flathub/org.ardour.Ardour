@@ -2,7 +2,7 @@
   "app-id": "org.ardour.Ardour",
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "21.08",
+  "runtime-version": "22.08",
   "command": "ardour6",
   "finish-args": [
     /* X11 + XShm access */
@@ -20,19 +20,18 @@
     "--own-name=org.freedesktop.ReserveDevice1.*",
     /* For pipewire + JACK */
     "--filesystem=xdg-run/pipewire-0",
-    "--system-talk-name=org.freedesktop.RealtimeKit1",
     /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
-    "--env=LXVST_PATH=/app/extensions/Plugins/lxvst",
+    "--env=LXVST_PATH=/app/extensions/Plugins/vst",
     "--env=VST3_PATH=/app/extensions/Plugins/vst3",
     "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa:/app/lib/ladspa"
   ],
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
-      "version": "21.08",
+      "version": "22.08",
       "add-ld-path": "lib",
-      "merge-dirs": "ladspa;lv2;lxvst;vst3",
+      "merge-dirs": "ladspa;lv2;vst;vst3",
       "subdirectories": true,
       "no-autodownload": true
     }
@@ -474,7 +473,6 @@
         }
       ]
     },
-    "shared-modules/linux-audio/jack2.json",
     "shared-modules/lame/lame-3.99.5.json",
     {
       "name": "ffmpeg",
@@ -505,12 +503,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.9/xjadeo-0.8.9.tar.gz",
-          "sha256": "47b7aeb9d0a82178a72944bac31b3934afee620fb05eefb625f6f3f085d266f1"
-        },
-        {
-          "type": "patch",
-          "path": "patches/xjadeo-c-fix.patch"
+          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.11/xjadeo-0.8.11.tar.gz",
+          "sha256": "015d874b57ba83a919b17e463bbbda038fd24cabf0d8dc43273e8e492fd59942"
         }
       ]
     },
@@ -536,12 +530,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/x42/harvid/archive/v0.8.3.tar.gz",
-          "sha256": "7ade8a4eb4d6ed42d6a95cda5102ae2aada14f8cd2c501c36de8d9c599ffe73d"
-        },
-        {
-          "type": "patch",
-          "path": "patches/harvid-build-fix.patch"
+          "url": "https://github.com/x42/harvid/archive/v0.9.0.tar.gz",
+          "sha256": "8a4b97271fe88f95bdd42cc48089674b5b36f5c16741be6da06c825d818fc8f3"
         }
       ]
     },
