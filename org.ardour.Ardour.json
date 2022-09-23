@@ -587,10 +587,6 @@
         {
           "type": "patch",
           "path": "patches/ardour5-5.12.0-appdata-flatpak.patch"
-        },
-        {
-          "type": "patch",
-          "path": "patches/ardour6-automation-assert.patch"
         }
       ]
     }
