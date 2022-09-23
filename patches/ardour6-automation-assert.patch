@@ -1,0 +1,13 @@
+diff --git a/gtk2_ardour/automation_line.cc b/gtk2_ardour/automation_line.cc
+index d24d2069a3..f59704b84e 100644
+--- a/gtk2_ardour/automation_line.cc
++++ b/gtk2_ardour/automation_line.cc
+@@ -1029,7 +1029,7 @@ AutomationLine::reset_callback (const Evoral::ControlList& events)
+ 		delete cp;
+ 	}
+ 
+-	if (!terminal_points_can_slide) {
++	if (!terminal_points_can_slide && !control_points.empty()) {
+ 		control_points.back()->set_can_slide(false);
+ 	}
+ 
