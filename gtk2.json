@@ -34,6 +34,25 @@
   "modules": [
     "shared-modules/intltool/intltool-0.51.json",
     {
+      "name": "gdk-pixbuf",
+      "cleanup": [
+        "/include"
+      ],
+      "config-opts": [
+        "--disable-gtk-doc-html",
+        "--disable-introspection",
+        "--enable-silent-rules"
+      ],
+      "sources": [
+        {
+          /* Ardour */
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/gdk-pixbuf/2.31/gdk-pixbuf-2.31.1.tar.xz",
+          "sha256": "25a75e3c61dac11e6ff6416ad846951ccafac6486b1c6a1bfb0b213b99db52cd"
+        }
+      ]
+    },
+    {
       "name": "gtk2",
       "cleanup": [
         "/bin",
