@@ -4,7 +4,6 @@
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "22.08",
   "command": "ardour7",
-  "branch": "beta",
   "desktop-file-name-prefix": "(beta) ",
   "finish-args": [
     /* X11 + XShm access */
