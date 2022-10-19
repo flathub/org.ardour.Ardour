@@ -14,6 +14,7 @@
     "--device=all",
     /* Allow loading, saving files from the home dir (portals don’t work yet) */
     "--filesystem=home",
+    "--share=network",
     /* On SuSE it seems to be necessary for sound to work */
     "--env=ALSA_CONFIG_PATH=",
     /* Device reservation */
