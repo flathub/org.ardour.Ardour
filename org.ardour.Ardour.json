@@ -3,7 +3,7 @@
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "22.08",
-  "command": "ardour6",
+  "command": "ardour7",
   "finish-args": [
     /* X11 + XShm access */
     "--share=ipc",
@@ -14,6 +14,7 @@
     "--device=all",
     /* Allow loading, saving files from the home dir (portals don’t work yet) */
     "--filesystem=home",
+    "--share=network",
     /* On SuSE it seems to be necessary for sound to work */
     "--env=ALSA_CONFIG_PATH=",
     /* Device reservation */
@@ -484,8 +485,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/libwebsockets-4.0.15.tar.gz",
-          "sha256": "5f0534aebed62f4cb722a34cd80936048eb374fd726d74fd0065977b46801e93"
+          "url": "http://ardour.org/files/deps/libwebsockets-4.3.0-13.tar.gz",
+          "sha256": "69bf8dfceb6e79f204d19381d618f97145ed603443f2b5937b56c380e8d7ceb0"
         }
       ]
     },
@@ -567,28 +568,24 @@
         "*.a"
       ],
       "post-install": [
-        "desktop-file-edit --set-key=Name --set-value=\"Ardour 6\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v6 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour6.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour6.desktop /app/share/applications/${FLATPAK_ID}.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour6.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
+        "desktop-file-edit --set-key=Name --set-value=\"Ardour 7\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v7 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour7.desktop",
+        "install -Dm644 build/gtk2_ardour/ardour7.desktop /app/share/applications/${FLATPAK_ID}.desktop",
+        "install -Dm644 build/gtk2_ardour/ardour7.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
         "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
-        "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour6/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
+        "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour7/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
         "install -d /app/extensions/Plugins",
-        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour6"
+        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour7"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "6.9",
-          "commit": "945c8f288077565fe3de32c6ac0cb50e286722e4"
+          "tag": "7.0",
+          "commit": "6684a80d1d01215b3f431dd62d3ad640cc5f42c9"
         },
         {
           "type": "patch",
           "path": "patches/ardour5-5.12.0-appdata-flatpak.patch"
-        },
-        {
-          "type": "patch",
-          "path": "patches/ardour6-automation-assert.patch"
         }
       ]
     }

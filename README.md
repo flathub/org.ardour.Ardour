@@ -27,11 +27,16 @@ branches as to be available for different runtimes.
 
 ## User installed plugins
 
-Plugins in `~/.vst3`, `~/.vst` and `~/.lv2` may work if they are built 
+Plugins in `~/.vst3`, `~/.vst` and `~/.lv2` may work if they are built
 properly. There is no universal solution if they depend on .so that are
 not available or incompatible.
 
 There is no support for Win32 emulated VST.
+
+Network access
+--------------
+
+Starting Ardour 7, network access is granted for the loop library.
 
 Jack audio support
 ------------------
