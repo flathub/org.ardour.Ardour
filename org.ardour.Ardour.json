@@ -4,6 +4,7 @@
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "22.08",
   "command": "ardour7",
+  "rename-appdata-file": "ardour7.appdata.xml",
   "finish-args": [
     /* X11 + XShm access */
     "--share=ipc",
@@ -166,10 +167,10 @@
       ],
       "sources": [
         {
-          /* Ardour - also 22.08 version is broken */
+          /* Ardour - version for Opus support */
           "type": "archive",
-          "url": "http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.27.tar.gz",
-          "sha256": "a391952f27f4a92ceb2b4c06493ac107896ed6c76be9a613a4731f076d30fac0"
+          "url": "http://ardour.org/files/deps/libsndfile-1.1.0-41-gd8503a66.tar.xz",
+          "sha256": "a1fb3f96588f700fa04de20e9516004231ffdc87f080e3faaa1a97571e639c7a"
         }
       ]
     },
@@ -216,22 +217,26 @@
     },
     {
       "name": "rubberband",
+      "buildsystem": "meson",
       "build-options": {
         "env": {
           "Vamp_CFLAGS": " ",
           "Vamp_LIBS": " "
         }
       },
+      "config-opts": [
+        "-Dfft=fftw"
+      ],
       "sources": [
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://code.breakfastquay.com/attachments/download/34/rubberband-1.8.1.tar.bz2",
-          "sha256": "ff0c63b0b5ce41f937a8a3bc560f27918c5fe0b90c6bc1cb70829b86ada82b75"
+          "url": "http://breakfastquay.com/files/releases/rubberband-3.1.0.tar.bz2",
+          "sha256": "b95a76da5cdb3966770c60115ecd838f84061120f884c3bfdc904f75931ec9aa"
         }
       ],
       "post-install": [
-        "install -Dm644 -t /app/share/licenses/rubberband COPYING"
+        "install -Dm644 -t /app/share/licenses/rubberband ../COPYING"
       ],
       "cleanup": [
         "/bin",
@@ -485,12 +490,11 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/libwebsockets-4.3.0-13.tar.gz",
-          "sha256": "69bf8dfceb6e79f204d19381d618f97145ed603443f2b5937b56c380e8d7ceb0"
+          "url": "http://ardour.org/files/deps/libwebsockets-4.3.0-14.tar.gz",
+          "sha256": "929de090e13a36719fc4df04dad2a667eff694987bc26bdd5f01d69374e90710"
         }
       ]
     },
-    "shared-modules/lame/lame-3.99.5.json",
     {
       "name": "ffmpeg",
       "config-opts": [
@@ -570,7 +574,7 @@
       "post-install": [
         "desktop-file-edit --set-key=Name --set-value=\"Ardour 7\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v7 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour7.desktop",
         "install -Dm644 build/gtk2_ardour/ardour7.desktop /app/share/applications/${FLATPAK_ID}.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour7.appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml",
+        "install -Dm644 build/gtk2_ardour/ardour7.appdata.xml -t /app/share/appdata/",
         "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour7/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
         "install -d /app/extensions/Plugins",
@@ -580,12 +584,12 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "7.1",
-          "commit": "2b0e6ec47688ba8dccdd70e13e8b6a603d2c58f9"
+          "tag": "7.2",
+          "commit": "618755649832c36e0afd3a4947ff085e2e3fb1ea"
         },
         {
           "type": "patch",
-          "path": "patches/ardour5-5.12.0-appdata-flatpak.patch"
+          "path": "patches/ardour7-7.2-appdata-flatpak.patch"
         }
       ]
     }
