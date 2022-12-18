@@ -38,6 +38,8 @@ Network access
 
 Starting Ardour 7, network access is granted for the loop library.
 
+The Media library of MIDI files is installed at build time.
+
 Jack audio support
 ------------------
 

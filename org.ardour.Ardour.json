@@ -578,7 +578,8 @@
         "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
         "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour7/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
         "install -d /app/extensions/Plugins",
-        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour7"
+        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour7",
+        "unzip -d ${FLATPAK_DEST}/share/ardour7/media ArdourBundledMedia.zip"
       ],
       "sources": [
         {
@@ -586,6 +587,11 @@
           "url": "https://github.com/Ardour/ardour.git",
           "tag": "7.2",
           "commit": "618755649832c36e0afd3a4947ff085e2e3fb1ea"
+        },
+        {
+          "type": "file",
+          "url": "http://stuff.ardour.org/loops/ArdourBundledMedia.zip",
+          "sha256": "a00de00671cdc329b2ca35c2a5c4150af3d6588147f9dca2e3dea752aa2e234c"
         },
         {
           "type": "patch",
