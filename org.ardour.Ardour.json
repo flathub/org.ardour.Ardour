@@ -585,8 +585,8 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "7.2",
-          "commit": "618755649832c36e0afd3a4947ff085e2e3fb1ea"
+          "tag": "7.3",
+          "commit": "8f248bd0bac70f0b7a84013ada536bdef1bbcb59"
         },
         {
           "type": "file",

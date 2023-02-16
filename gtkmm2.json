@@ -3,6 +3,22 @@
     "modules": [
         "gtk2.json",
         {
+            "name": "gtk-engines",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ardour.org/files/gtk-engines-2.21.0.tar.gz",
+                    "sha256": "13be8ffe78502922da8988c9d00babc213d6dddb9b46f0055bd90190f468fa35"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "cp -p /usr/share/automake-*/config.{sub,guess} ."
+                    ]
+                }
+            ]
+        },
+        {
             "name": "sigc++-2",
             "cleanup": [
                 "/include",
