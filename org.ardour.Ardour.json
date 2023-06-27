@@ -560,6 +560,7 @@
       "name": "ardour",
       "buildsystem": "simple",
       "build-options": {
+          "cppflags": "-DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_56 -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56",
           "cxxflags": "-std=gnu++14"
       },
       "build-commands": [
@@ -585,8 +586,8 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "7.4",
-          "commit": "5e967c02a9cfc2fffadc9d0edca294ff193481fd"
+          "tag": "7.5",
+          "commit": "e1950ec49e601864f06e316ba8cee730a3964989"
         },
         {
           "type": "file",
