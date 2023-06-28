@@ -599,6 +599,40 @@
           "path": "patches/ardour7-7.2-appdata-flatpak.patch"
         }
       ]
+    },
+    {
+        "name": "pipewire",
+        "buildsystem": "meson",
+        "config-opts": [
+            "-Ddocs=disabled",
+            "-Dexamples=disabled",
+            "-Dman=disabled",
+            "-Dtests=disabled",
+            "-Dinstalled_tests=disabled",
+            "-Dgstreamer=enabled",
+            "-Dsystemd=disabled",
+            "-Dsystemd-system-service=disabled",
+            "-Daudiotestsrc=disabled",
+            "-Djack=enabled",
+            "-Dlibjack-path=/app/lib",
+            "-Droc=disabled",
+            "-Dvideotestsrc=disabled",
+            "-Dvolume=disabled",
+            "-Dvulkan=disabled",
+            "-Dbluez5-codec-ldac=disabled",
+            "-Dbluez5-codec-aptx=disabled",
+            "-Dlibcamera=disabled",
+            "-Dsession-managers=[]",
+            "-Dudevrulesdir=/tmp/lib/udev/rules.d"
+        ],
+        "sources": [
+            {
+                "type": "git",
+                "url": "https://gitlab.freedesktop.org/pipewire/pipewire.git",
+                "tag": "0.3.72",
+                "commit": "4cc22d60d2280fb3c771e6a246e79c90819fd485"
+            }
+        ]
     }
   ]
 }
