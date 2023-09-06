@@ -2,7 +2,7 @@
   "app-id": "org.ardour.Ardour",
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "22.08",
+  "runtime-version": "23.08",
   "command": "ardour7",
   "rename-appdata-file": "ardour7.appdata.xml",
   "finish-args": [
@@ -31,7 +31,7 @@
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
-      "version": "22.08",
+      "version": "23.08",
       "add-ld-path": "lib",
       "merge-dirs": "ladspa;lv2;vst;vst3",
       "subdirectories": true,
@@ -90,6 +90,10 @@
               "type": "archive",
               "url": "http://download.librdf.org/source/raptor2-2.0.14.tar.gz",
               "sha256": "cb447b7c684cbe60f1266d622691fd20fdcf7b91f4a470c6de5fc8e8961df1b2"
+            },
+            {
+                "type": "patch",
+                "path": "shared-modules/linux-audio/patches/raptor-libxml.patch"
             }
           ]
         }
@@ -492,6 +496,10 @@
           "type": "archive",
           "url": "http://ardour.org/files/deps/libwebsockets-4.3.0-14.tar.gz",
           "sha256": "929de090e13a36719fc4df04dad2a667eff694987bc26bdd5f01d69374e90710"
+        },
+        {
+          "type": "patch",
+          "path": "patches/libwebsocket-build.patch"
         }
       ]
     },
@@ -510,6 +518,10 @@
           "type": "archive",
           "url": "https://www.ffmpeg.org/releases/ffmpeg-4.2.3.tar.xz",
           "sha256": "9df6c90aed1337634c1fb026fb01c154c29c82a64ea71291ff2da9aacb9aad31"
+        },
+        {
+          "type": "patch",
+          "path": "patches/ffmpeg-as-fix.patch"
         }
       ],
       "cleanup": [
@@ -599,40 +611,6 @@
           "path": "patches/ardour7-7.2-appdata-flatpak.patch"
         }
       ]
-    },
-    {
-        "name": "pipewire",
-        "buildsystem": "meson",
-        "config-opts": [
-            "-Ddocs=disabled",
-            "-Dexamples=disabled",
-            "-Dman=disabled",
-            "-Dtests=disabled",
-            "-Dinstalled_tests=disabled",
-            "-Dgstreamer=enabled",
-            "-Dsystemd=disabled",
-            "-Dsystemd-system-service=disabled",
-            "-Daudiotestsrc=disabled",
-            "-Djack=enabled",
-            "-Dlibjack-path=/app/lib",
-            "-Droc=disabled",
-            "-Dvideotestsrc=disabled",
-            "-Dvolume=disabled",
-            "-Dvulkan=disabled",
-            "-Dbluez5-codec-ldac=disabled",
-            "-Dbluez5-codec-aptx=disabled",
-            "-Dlibcamera=disabled",
-            "-Dsession-managers=[]",
-            "-Dudevrulesdir=/tmp/lib/udev/rules.d"
-        ],
-        "sources": [
-            {
-                "type": "git",
-                "url": "https://gitlab.freedesktop.org/pipewire/pipewire.git",
-                "tag": "0.3.72",
-                "commit": "4cc22d60d2280fb3c771e6a246e79c90819fd485"
-            }
-        ]
     }
   ]
 }
