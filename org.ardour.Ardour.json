@@ -3,8 +3,9 @@
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "23.08",
-  "command": "ardour7",
-  "rename-appdata-file": "ardour7.appdata.xml",
+  "command": "ardour8",
+  "rename-appdata-file": "ardour8.appdata.xml",
+  "rename-desktop-file": "ardour8.desktop",
   "finish-args": [
     /* X11 + XShm access */
     "--share=ipc",
@@ -205,8 +206,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "https://archive.org/download/vamp-plugin-sdk-2.8.0-source/vamp-plugin-sdk-2.8.0.tar.gz",
-          "sha256": "dcc96ae894795822398789f251c2c7effa602fc60e9dd6c7a5c5d2e7a513526c"
+          "url": "https://code.soundsoftware.ac.uk/attachments/download/2588/vamp-plugin-sdk-2.9.0.tar.gz",
+          "sha256": "b72a78ef8ff8a927dc2ed7e66ecf4c62d23268a5d74d02da25be2b8d00341099"
         }
       ],
       "post-install": [
@@ -235,8 +236,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://breakfastquay.com/files/releases/rubberband-3.1.0.tar.bz2",
-          "sha256": "b95a76da5cdb3966770c60115ecd838f84061120f884c3bfdc904f75931ec9aa"
+          "url": "http://breakfastquay.com/files/releases/rubberband-3.3.0.tar.bz2",
+          "sha256": "d9ef89e2b8ef9f85b13ac3c2faec30e20acf2c9f3a9c8c45ce637f2bc95e576c"
         }
       ],
       "post-install": [
@@ -585,21 +586,22 @@
         "*.a"
       ],
       "post-install": [
-        "desktop-file-edit --set-key=Name --set-value=\"Ardour 7\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v7 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour7.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour7.desktop /app/share/applications/${FLATPAK_ID}.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour7.appdata.xml -t /app/share/appdata/",
+        "desktop-file-edit --set-key=Name --set-value=\"Ardour 8\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v8 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour8.desktop",
+        "install -Dm644 build/gtk2_ardour/ardour8.desktop -t /app/share/applications/",
+        "install -Dm644 build/gtk2_ardour/ardour8.appdata.xml -t /app/share/appdata/",
         "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
-        "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour7/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
+        "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour8/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
+          "for s in 16 22 32 48; do install -Dpm644 /app/share/ardour8/icons/application-x-ardour_${s}px.png /app/share/icons/hicolor/${s}x${s}/mimetypes/${FLATPAK_ID}.application-x-ardour.png ; done",
         "install -d /app/extensions/Plugins",
-        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour7",
-        "unzip -d ${FLATPAK_DEST}/share/ardour7/media ArdourBundledMedia.zip"
+        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour8",
+        "unzip -d ${FLATPAK_DEST}/share/ardour8/media ArdourBundledMedia.zip"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "7.5",
-          "commit": "e1950ec49e601864f06e316ba8cee730a3964989"
+          "tag": "8.0",
+          "commit": "120979bd760d06cb2ea7d4da166624eec4bd94ab"
         },
         {
           "type": "file",

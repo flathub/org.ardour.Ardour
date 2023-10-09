@@ -34,8 +34,8 @@
                 {
                     /* Ardour */
                     "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/libsigc++/2.4/libsigc++-2.4.1.tar.xz",
-                    "sha256" : "540443492a68e77e30db8d425f3c0b1299c825bf974d9bfc31ae7efafedc19ec"
+                    "url" : "https://download.gnome.org/sources/libsigc++/2.10/libsigc++-2.10.2.tar.xz",
+                    "sha256" : "b1ca0253379596f9c19f070c83d362b12dfd39c0a3ea1dd813e8e21c1a097a98"
                 }
             ]
         },
@@ -56,8 +56,8 @@
                 {
                     /* Ardour */
                     "type": "archive",
-                    "url": "http://cairographics.org/releases/cairomm-1.11.2.tar.gz",
-                    "sha256": "ccf677098c1e08e189add0bd146f78498109f202575491a82f1815b6bc28008d"
+                    "url": "http://cairographics.org/releases/cairomm-1.12.2.tar.gz",
+                    "sha256": "45c47fd4d0aa77464a75cdca011143fea3ef795c4753f6e860057da5fb8bd599"
                 }
             ]
         },
@@ -80,12 +80,8 @@
                 {
                     /* Ardour */
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/glibmm/2.42/glibmm-2.42.0.tar.xz",
-                    "sha256" : "985083d97378d234da27a7243587cc0d186897a4b2d3c1286f794089be1a3397"
-                },
-                {
-                    "type": "patch",
-                    "path": "patches/glibmm-c++-fixes.diff"
+                    "url": "https://download.gnome.org/sources/glibmm/2.56/glibmm-2.56.1.tar.xz",
+                    "sha256" : "dac6872058adde263b7eb0bef07263ba65abb5abc7fd4ca337e81cc5d5f9ca87"
                 }
             ]
         },
@@ -105,8 +101,8 @@
                 {
                     /* Ardour */
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/pangomm/2.34/pangomm-2.34.0.tar.xz",
-                    "sha256": "0e82bbff62f626692a00f3772d8b17169a1842b8cc54d5f2ddb1fec2cede9e41"
+                    "url": "https://download.gnome.org/sources/pangomm/2.42/pangomm-2.42.0.tar.xz",
+                    "sha256": "ca6da067ff93a6445780c0b4b226eb84f484ab104b8391fb744a45cbc7edbf56"
                 },
                 {
                     "type": "patch",
@@ -153,8 +149,8 @@
         {
             /* Ardour */
             "type": "archive",
-            "url": "https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.4.tar.xz",
-            "sha256": "443a2ff3fcb42a915609f1779000390c640a6d7fd19ad8816e6161053696f5ee"
+            "url": "https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz",
+            "sha256": "0680a53b7bf90b4e4bf444d1d89e6df41c777e0bacc96e9c09fc4dd2f5fe6b72"
         }
     ]
 }
