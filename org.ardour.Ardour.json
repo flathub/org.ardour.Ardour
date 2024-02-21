@@ -600,8 +600,8 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "8.2",
-          "commit": "92d6cb993391a37dcf3bd494707117ed63a4e7c4"
+          "tag": "8.4",
+          "commit": "c35515e43d65bac23c89ae11cfbf2fed8c8f46b6"
         },
         {
           "type": "file",
