@@ -43,7 +43,98 @@
     "/lib/pkgconfig"
   ],
   "modules": [
-    "gtkmm2.json",
+        {
+            "name": "sigc++-2",
+            "cleanup": [
+                "/include",
+                "/lib/sigc++-2.0"
+            ],
+            "build-options": {
+                "cxxflags": "-std=gnu++14"
+            },
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "sources" : [
+                {
+                    /* Ardour */
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/libsigc++/2.10/libsigc++-2.10.2.tar.xz",
+                    "sha256" : "b1ca0253379596f9c19f070c83d362b12dfd39c0a3ea1dd813e8e21c1a097a98"
+                }
+            ]
+        },
+        {
+            "name": "cairomm",
+            "build-options": {
+                "cxxflags": "-std=gnu++14"
+            },
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/cairomm-1.0",
+                "*.la"
+            ],
+            "sources": [
+                {
+                    /* Ardour */
+                    "type": "archive",
+                    "url": "http://cairographics.org/releases/cairomm-1.12.2.tar.gz",
+                    "sha256": "45c47fd4d0aa77464a75cdca011143fea3ef795c4753f6e860057da5fb8bd599"
+                }
+            ]
+        },
+        {
+            "name": "glibmm",
+            "build-options": {
+                "cxxflags": "-std=gnu++14"
+            },
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/giomm-2.4",
+                "/lib/glibmm-2.4",
+                "/lib/*.so",
+                "*.la"
+            ],
+            "sources": [
+                {
+                    /* Ardour */
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/glibmm/2.56/glibmm-2.56.1.tar.xz",
+                    "sha256" : "dac6872058adde263b7eb0bef07263ba65abb5abc7fd4ca337e81cc5d5f9ca87"
+                }
+            ]
+        },
+        {
+            "name": "pangomm",
+            "cleanup": [
+                "/include",
+                "/lib/pangomm-1.4"
+            ],
+            "build-options": {
+                "cxxflags": "-std=gnu++14"
+            },
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "sources": [
+                {
+                    /* Ardour */
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/pangomm/2.42/pangomm-2.42.0.tar.xz",
+                    "sha256": "ca6da067ff93a6445780c0b4b226eb84f484ab104b8391fb744a45cbc7edbf56"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/pangomm-api.patch"
+                }
+            ]
+        },
     {
       "name" : "boost",
       "buildsystem" : "simple",
@@ -445,33 +536,6 @@
         "/include",
         "/lib/pkgconfig",
         "/share/man"
-      ]
-    },
-    {
-      "name": "suil",
-      "buildsystem": "simple",
-      "build-commands": [
-        "python3 ./waf configure --prefix=/app",
-        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-        "python3 ./waf install"
-      ],
-      "cleanup": [
-        "/bin",
-        "/etc",
-        "/include",
-        "/lib/pkgconfig",
-        "/share/man"
-      ],
-      "sources": [
-        {
-          /* Ardour */
-          "type": "archive",
-          "url": "http://ardour.org/files/deps/suil-0.10.8-g05c2afb.tar.bz2",
-          "sha256": "80d3626e76f0c23cdf7879f92095e970411eaca59bdda0330f27299c4b4109b2"
-        }
-      ],
-      "post-install": [
-        "install -Dm644 -t /app/share/licenses/suil COPYING"
       ]
     },
     {

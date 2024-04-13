@@ -11,10 +11,6 @@ listed at https://nightly.ardour.org/list.php#build_deps
 
 This is to provide the best experience to upstream binary builds.
 
-gdk-pixbuf was added to the build: the version shipping with the SDK is
-causing crashes on aarch4 when moving any plugin in the mixer. The version
-build is the one recommended by Ardour.
-
 Plugins support
 ---------------
 
