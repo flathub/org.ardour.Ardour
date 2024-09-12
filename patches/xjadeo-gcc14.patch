@@ -1,0 +1,12 @@
+diff --git a/src/xjadeo/xjadeo.c b/src/xjadeo/xjadeo.c
+index d626f92..ce85682 100644
+--- a/src/xjadeo/xjadeo.c
++++ b/src/xjadeo/xjadeo.c
+@@ -22,6 +22,7 @@
+ 
+ #include "ffcompat.h"
+ #include <libswscale/swscale.h>
++#include <libavutil/imgutils.h>
+ #include <pthread.h>
+ #include <assert.h>
+ 

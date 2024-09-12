@@ -1,0 +1,12 @@
+diff --git a/libharvid/ffdecoder.c b/libharvid/ffdecoder.c
+index 7b5c751..c4574cc 100644
+--- a/libharvid/ffdecoder.c
++++ b/libharvid/ffdecoder.c
+@@ -32,6 +32,7 @@
+ 
+ #include "ffcompat.h"
+ #include <libswscale/swscale.h>
++#include <libavutil/imgutils.h>
+ 
+ #ifndef MAX
+ #define MAX(A,B) ( ( (A) > (B) ) ? (A) : (B) )
