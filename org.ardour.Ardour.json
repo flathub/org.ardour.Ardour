@@ -6,24 +6,21 @@
   "command": "ardour8",
   "rename-appdata-file": "ardour8.appdata.xml",
   "rename-desktop-file": "ardour8.desktop",
+  "rename-icon": "ardour8",
+  "rename-mime-file": "ardour.xml",
+  "rename-mime-icons": [
+     "application-x-ardour"
+  ],
   "finish-args": [
-    /* X11 + XShm access */
     "--share=ipc",
     "--socket=x11",
-    /* Note playback */
     "--socket=pulseaudio",
-    /* MIDI + Alsa */
     "--device=all",
-    /* Allow loading, saving files from the home dir (portals don’t work yet) */
     "--filesystem=home",
     "--share=network",
-    /* On SuSE it seems to be necessary for sound to work */
     "--env=ALSA_CONFIG_PATH=",
-    /* Device reservation */
     "--own-name=org.freedesktop.ReserveDevice1.*",
-    /* For pipewire + JACK */
     "--filesystem=xdg-run/pipewire-0",
-    /* Allow other instances to see lockfiles */
     "--env=TMPDIR=/var/tmp",
     "--env=LXVST_PATH=/app/extensions/Plugins/vst",
     "--env=VST3_PATH=/app/extensions/Plugins/vst3",
@@ -40,7 +37,9 @@
     }
   },
   "cleanup": [
-    "/lib/pkgconfig"
+    "/include",
+    "/lib/pkgconfig",
+    "/share/info"
   ],
   "modules": [
         {
@@ -603,6 +602,10 @@
           "type": "archive",
           "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.11/xjadeo-0.8.11.tar.gz",
           "sha256": "015d874b57ba83a919b17e463bbbda038fd24cabf0d8dc43273e8e492fd59942"
+        },
+        {
+            "type": "patch",
+            "path": "patches/xjadeo-gcc14.patch"
         }
       ]
     },
@@ -630,6 +633,10 @@
           "type": "archive",
           "url": "https://github.com/x42/harvid/archive/v0.9.0.tar.gz",
           "sha256": "8a4b97271fe88f95bdd42cc48089674b5b36f5c16741be6da06c825d818fc8f3"
+        },
+        {
+          "type": "patch",
+          "path": "patches/harvid-gcc14.patch"
         }
       ]
     },
@@ -650,12 +657,8 @@
         "*.a"
       ],
       "post-install": [
-        "desktop-file-edit --set-key=Name --set-value=\"Ardour 8\" --set-generic-name=\"Digital Audio Workstation\" --set-key=X-GNOME-FullName --set-value=\"Ardour v8 (Digital Audio Workstation)\" --set-comment=\"Record, mix and master audio\" --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} build/gtk2_ardour/ardour8.desktop",
-        "install -Dm644 build/gtk2_ardour/ardour8.desktop -t /app/share/applications/",
-        "install -Dm644 build/gtk2_ardour/ardour8.appdata.xml -t /app/share/appdata/",
-        "install -Dm644 gtk2_ardour/ardour-mime-info.xml /app/share/mime/packages/${FLATPAK_ID}.xml",
-        "for s in 16 22 32 48 256 512; do install -Dpm644 /app/share/ardour8/resources/Ardour-icon_${s}px.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png ; done",
-          "for s in 16 22 32 48; do install -Dpm644 /app/share/ardour8/icons/application-x-ardour_${s}px.png /app/share/icons/hicolor/${s}x${s}/mimetypes/${FLATPAK_ID}.application-x-ardour.png ; done",
+        "for s in 16 22 32 48; do install -Dpm644 /app/share/ardour8/icons/application-x-ardour_${s}px.png /app/share/icons/hicolor/${s}x${s}/mimetypes/application-x-ardour.png ; done",
+        "desktop-file-edit --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} /app/share/applications/ardour8.desktop",
         "install -d /app/extensions/Plugins",
         "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour8",
         "unzip -d ${FLATPAK_DEST}/share/ardour8/media ArdourBundledMedia.zip"
@@ -664,8 +667,8 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "8.6",
-          "commit": "dde59c8e4cd6629ea05241a0cd35d34c26b20202"
+          "tag": "8.7",
+          "commit": "ab533c38a3cd8779ab8873bf64df715a017de537"
         },
         {
           "type": "file",
