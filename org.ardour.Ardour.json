@@ -2,7 +2,7 @@
   "app-id": "org.ardour.Ardour",
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "24.08",
+  "runtime-version": "25.08",
   "command": "ardour8",
   "rename-appdata-file": "ardour8.appdata.xml",
   "rename-desktop-file": "ardour8.desktop",
@@ -29,7 +29,7 @@
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
-      "version": "24.08",
+      "version": "25.08",
       "add-ld-path": "lib",
       "merge-dirs": "ladspa;lv2;vst;vst3",
       "subdirectories": true,
@@ -257,6 +257,9 @@
     },
     {
       "name": "sndfile",
+      "build-options": {
+        "cflags": "-std=c18"
+      },
       "cleanup": [
         ".a"
       ],
@@ -273,6 +276,7 @@
       "name": "taglib",
       "buildsystem": "cmake-ninja",
       "config-opts": [
+        "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
         "-DBUILD_SHARED_LIBS=ON"
       ],
       "cleanup": [
@@ -392,6 +396,9 @@
         "/lib/pkgconfig",
         "*.a"
       ],
+      "build-options": {
+        "ldflags": "-lm"
+      },
       "sources": [
         {
           /* Ardour */
@@ -552,6 +559,7 @@
         "cflags": "-Wno-error=deprecated-declarations"
       },
       "config-opts": [
+        "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
         "-DLWS_WITH_EXTERNAL_POLL=ON"
       ],
       "sources": [
