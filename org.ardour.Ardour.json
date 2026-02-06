@@ -3,10 +3,10 @@
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "25.08",
-  "command": "ardour8",
-  "rename-appdata-file": "ardour8.appdata.xml",
-  "rename-desktop-file": "ardour8.desktop",
-  "rename-icon": "ardour8",
+  "command": "ardour9",
+  "rename-appdata-file": "ardour9.appdata.xml",
+  "rename-desktop-file": "ardour9.desktop",
+  "rename-icon": "ardour9",
   "rename-mime-file": "ardour.xml",
   "rename-mime-icons": [
      "application-x-ardour"
@@ -251,7 +251,6 @@
         }
       ],
       "post-install": [
-        "install -Dm644 -t $FLATPAK_DEST/share/licenses/lv2 COPYING",
         "ln -sf lv2.pc $FLATPAK_DEST/lib/pkgconfig/lv2core.pc"
       ]
     },
@@ -304,9 +303,6 @@
           "sha256": "b72a78ef8ff8a927dc2ed7e66ecf4c62d23268a5d74d02da25be2b8d00341099"
         }
       ],
-      "post-install": [
-        "install -Dm644 -t /app/share/licenses/vamp-plugin-sdk COPYING"
-      ],
       "cleanup": [
         "/bin",
         "/include",
@@ -333,9 +329,6 @@
           "url": "http://breakfastquay.com/files/releases/rubberband-3.3.0.tar.bz2",
           "sha256": "d9ef89e2b8ef9f85b13ac3c2faec30e20acf2c9f3a9c8c45ce637f2bc95e576c"
         }
-      ],
-      "post-install": [
-        "install -Dm644 -t /app/share/licenses/rubberband ../COPYING"
       ],
       "cleanup": [
         "/bin",
@@ -434,9 +427,6 @@
           "url": "https://github.com/libusb/libusb/releases/download/v1.0.20/libusb-1.0.20.tar.bz2",
           "sha256" : "cb057190ba0a961768224e4dc6883104c6f945b2bf2ef90d7da39e7c1834f7ff"
         }
-      ],
-      "post-install": [
-        "install -Dm644 COPYING /app/share/licenses/libusb/COPYING"
       ]
     },
     {
@@ -464,9 +454,6 @@
               "sha256": "76afe98511351c3c50010d9f145cfd1f10b54a9565cb7889f0ca5158da806598"
             }
           ],
-          "post-install": [
-            "install -Dm644 -t /app/share/licenses/serd COPYING"
-          ],
           "cleanup": [
             "/bin",
             "/include",
@@ -489,9 +476,6 @@
               "url": "http://ardour.org/files/deps/sord-0.16.9-gd2efdb2.tar.bz2",
               "sha256": "40168fc08f3b45fe2cc978bf3a2b14607dc8be2c59598bcac1523cbe59b9ba1a"
             }
-          ],
-          "post-install": [
-            "install -Dm644 -t /app/share/licenses/sord COPYING"
           ],
           "cleanup": [
             "/bin",
@@ -519,9 +503,6 @@
               "url": "http://ardour.org/files/deps/sratom-0.6.8-gc46452c.tar.bz2",
               "sha256": "9ca25888964d062fe9c7390e23fcb0de215da0f433ce032e8e570ad9bd772ed9"
             }
-          ],
-          "post-install": [
-            "install -Dm644 -t /app/share/licenses/sratom COPYING"
           ]
         }
       ],
@@ -532,9 +513,6 @@
           "url": "http://ardour.org/files/deps/lilv-0.24.13-g71a2ff5.tar.bz2",
           "sha256": "fd3053f744d04bbd72aff8549576fc115499fd806da0f32d1ee3b9ef65a1e77c"
         }
-      ],
-      "post-install": [
-        "install -Dm644 -t /app/share/licenses/lilv COPYING"
       ],
       "cleanup": [
         "/bin",
@@ -608,8 +586,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.11/xjadeo-0.8.11.tar.gz",
-          "sha256": "015d874b57ba83a919b17e463bbbda038fd24cabf0d8dc43273e8e492fd59942"
+          "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.15/xjadeo-0.8.15.tar.gz",
+          "sha256": "54b3bc321b101bf73bd79da1013c6f95afc64312c70bdf745d8093cb1d52ef80"
         },
         {
             "type": "patch",
@@ -639,8 +617,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/x42/harvid/archive/v0.9.0.tar.gz",
-          "sha256": "8a4b97271fe88f95bdd42cc48089674b5b36f5c16741be6da06c825d818fc8f3"
+          "url": "https://github.com/x42/harvid/archive/v0.9.1.tar.gz",
+          "sha256": "6a3c881644b4c044d01ebd06bc8388b2f85764d7f1efac4a3cdeac9858f156a5"
         },
         {
           "type": "patch",
@@ -652,8 +630,7 @@
       "name": "ardour",
       "buildsystem": "simple",
       "build-options": {
-          "cppflags": "-DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_56 -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56",
-          "cxxflags": "-std=gnu++14"
+          "cppflags": "-DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_56 -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56"
       },
       "build-commands": [
         "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
@@ -665,18 +642,18 @@
         "*.a"
       ],
       "post-install": [
-        "for s in 16 22 32 48; do install -Dpm644 /app/share/ardour8/icons/application-x-ardour_${s}px.png /app/share/icons/hicolor/${s}x${s}/mimetypes/application-x-ardour.png ; done",
-        "desktop-file-edit --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} /app/share/applications/ardour8.desktop",
+        "for s in 16 22 32 48; do install -Dpm644 /app/share/ardour9/icons/application-x-ardour_${s}px.png /app/share/icons/hicolor/${s}x${s}/mimetypes/application-x-ardour.png ; done",
+        "desktop-file-edit --remove-category=AudioEditing --add-category=X-AudioEditing --set-icon=${FLATPAK_ID} /app/share/applications/ardour9.desktop",
         "install -d /app/extensions/Plugins",
-        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour8",
-        "unzip -d ${FLATPAK_DEST}/share/ardour8/media ArdourBundledMedia.zip"
+        "sed -e '7i export LV2_PATH=${LV2_PATH:-$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2}' -i /app/bin/ardour9",
+        "unzip -d ${FLATPAK_DEST}/share/ardour9/media ArdourBundledMedia.zip"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "8.12",
-          "commit": "10517bff2b2c7b882b453296a939cf5d03174831"
+          "tag": "9.0",
+          "commit": "8628bb4f4cecaeac1dc237191fd685636864b6c8"
         },
         {
           "type": "file",
