@@ -588,10 +588,6 @@
           "type": "archive",
           "url": "https://downloads.sourceforge.net/project/xjadeo/xjadeo/v0.8.15/xjadeo-0.8.15.tar.gz",
           "sha256": "54b3bc321b101bf73bd79da1013c6f95afc64312c70bdf745d8093cb1d52ef80"
-        },
-        {
-            "type": "patch",
-            "path": "patches/xjadeo-gcc14.patch"
         }
       ]
     },
@@ -619,10 +615,6 @@
           "type": "archive",
           "url": "https://github.com/x42/harvid/archive/v0.9.1.tar.gz",
           "sha256": "6a3c881644b4c044d01ebd06bc8388b2f85764d7f1efac4a3cdeac9858f156a5"
-        },
-        {
-          "type": "patch",
-          "path": "patches/harvid-gcc14.patch"
         }
       ]
     },
