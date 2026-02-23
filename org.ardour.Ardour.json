@@ -13,7 +13,8 @@
   ],
   "finish-args": [
     "--share=ipc",
-    "--socket=x11",
+    "--socket=wayland",
+    "--socket=fallback-x11",
     "--socket=pulseaudio",
     "--device=all",
     "--filesystem=home",
@@ -149,8 +150,8 @@
       "sources" : [
         {
           "type" : "archive",
-          "url" : "https://downloads.sourceforge.net/project/boost/boost/1.68.0/boost_1_68_0.tar.bz2",
-          "sha256" : "7f6130bc3cf65f56a618888ce9d5ea704fa10b462be126ad053e80e553d6d8b7"
+          "url" : "https://downloads.sourceforge.net/project/boost/boost/1.84.0/boost_1_84_0.tar.bz2",
+          "sha256" : "cc4b893acf645c9d4b698e9a0f08ca8846aa5d6c68275c14c3e7949c24109454"
         }
       ]
     },
@@ -179,8 +180,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://download.librdf.org/source/raptor2-2.0.14.tar.gz",
-              "sha256": "cb447b7c684cbe60f1266d622691fd20fdcf7b91f4a470c6de5fc8e8961df1b2"
+              "url": "https://download.librdf.org/source/raptor2-2.0.16.tar.gz",
+              "sha256": "089db78d7ac982354bdbf39d973baf09581e6904ac4c92a98c5caadb3de44680"
             },
             {
                 "type": "patch",
@@ -230,12 +231,7 @@
     },
     {
       "name": "lv2",
-      "buildsystem": "simple",
-      "build-commands": [
-        "python3 ./waf configure --prefix=$FLATPAK_DEST --lv2dir=$FLATPAK_DEST/lib/lv2 --copy-headers",
-        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-        "python3 ./waf install"
-      ],
+      "buildsystem": "meson",
       "cleanup": [
         "/bin",
         "/include",
@@ -246,12 +242,9 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/lv2-1.18.2-g611759d.tar.bz2",
-          "sha256": "e0f152a3d7310f7fc1c233a2c646b319d4615a821efe29bf7449283cb37c70ce"
+          "url": "https://lv2plug.in/spec/lv2-1.18.10.tar.xz",
+          "sha256": "78c51bcf21b54e58bb6329accbb4dae03b2ed79b520f9a01e734bd9de530953f"
         }
-      ],
-      "post-install": [
-        "ln -sf lv2.pc $FLATPAK_DEST/lib/pkgconfig/lv2core.pc"
       ]
     },
     {
@@ -287,8 +280,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://taglib.github.io/releases/taglib-1.9.1.tar.gz",
-          "sha256": "72d371cd1419a87ae200447a53bff2be219283071e80fd12337928cc967dc71a"
+          "url": "https://taglib.org/releases/taglib-2.0.tar.gz",
+          "sha256": "e36ea877a6370810b97d84cf8f72b1e4ed205149ab3ac8232d44c850f38a2859"
         }
       ]
     },
@@ -299,8 +292,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "https://code.soundsoftware.ac.uk/attachments/download/2588/vamp-plugin-sdk-2.9.0.tar.gz",
-          "sha256": "b72a78ef8ff8a927dc2ed7e66ecf4c62d23268a5d74d02da25be2b8d00341099"
+          "url": "https://github.com/vamp-plugins/vamp-plugin-sdk/archive/refs/tags/vamp-plugin-sdk-v2.10.tar.gz",
+          "sha256": "b552bc91817294c7f90ea07d70938642ebf15d5e3bafc81cf7d55efab9995399"
         }
       ],
       "cleanup": [
@@ -366,8 +359,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://www.fftw.org/fftw-3.3.8.tar.gz",
-          "sha256": "6113262f6e92c5bd474f2875fa1b01054c4ad5040f6b0da7c03c98821d9ae303"
+          "url": "http://www.fftw.org/fftw-3.3.10.tar.gz",
+          "sha256": "56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467"
         }
       ],
       "cleanup": [
@@ -431,27 +424,17 @@
     },
     {
       "name": "lilv",
-      "buildsystem": "simple",
-      "build-commands": [
-        "python3 ./waf configure --prefix=$FLATPAK_DEST",
-        "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-        "python3 ./waf install"
-      ],
+      "buildsystem": "meson",
       "modules": [
         {
           "name": "serd",
-          "buildsystem": "simple",
-          "build-commands": [
-            "python3 ./waf configure --prefix=$FLATPAK_DEST",
-            "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-            "python3 ./waf install"
-          ],
+          "buildsystem": "meson",
           "sources": [
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/serd-0.30.11-g36f1cecc.tar.bz2",
-              "sha256": "76afe98511351c3c50010d9f145cfd1f10b54a9565cb7889f0ca5158da806598"
+              "url": "https://download.drobilla.net/serd-0.32.6.tar.xz",
+              "sha256": "0fbe094952fe176ba4da4f2f767ddfb5f60e67e64d1761b4383a0b872cfd071a"
             }
           ],
           "cleanup": [
@@ -463,18 +446,13 @@
         },
         {
           "name": "sord",
-          "buildsystem": "simple",
-          "build-commands": [
-            "python3 ./waf configure --prefix=$FLATPAK_DEST",
-            "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-            "python3 ./waf install"
-          ],
+          "buildsystem": "meson",
           "sources": [
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/sord-0.16.9-gd2efdb2.tar.bz2",
-              "sha256": "40168fc08f3b45fe2cc978bf3a2b14607dc8be2c59598bcac1523cbe59b9ba1a"
+              "url": "https://download.drobilla.net/sord-0.16.20.tar.xz",
+              "sha256": "508b41d6b4f9d5902c9f5b9cf25170d9d0636f68f11bd257c1150497f754a2a4"
             }
           ],
           "cleanup": [
@@ -486,12 +464,7 @@
         },
         {
           "name": "sratom",
-          "buildsystem": "simple",
-          "build-commands": [
-            "python3 ./waf configure --prefix=$FLATPAK_DEST",
-            "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
-            "python3 ./waf install"
-          ],
+          "buildsystem": "meson",
           "cleanup": [
             "/include",
             "/lib/pkgconfig"
@@ -500,8 +473,8 @@
             {
               /* Ardour */
               "type": "archive",
-              "url": "http://ardour.org/files/deps/sratom-0.6.8-gc46452c.tar.bz2",
-              "sha256": "9ca25888964d062fe9c7390e23fcb0de215da0f433ce032e8e570ad9bd772ed9"
+              "url": "https://download.drobilla.net/sratom-0.6.22.tar.xz",
+              "sha256": "0209b7d0f22c96abb416722ed735b0933be47931ecff4aa4b26ded7760b4f252"
             }
           ]
         }
@@ -510,8 +483,8 @@
         {
           /* Ardour */
           "type": "archive",
-          "url": "http://ardour.org/files/deps/lilv-0.24.13-g71a2ff5.tar.bz2",
-          "sha256": "fd3053f744d04bbd72aff8549576fc115499fd806da0f32d1ee3b9ef65a1e77c"
+          "url": "https://download.drobilla.net/lilv-0.26.4.tar.xz",
+          "sha256": "1c8b5fcb78718173e67d76e51ad423f5113a9ff68463f2566195ae46396089e3"
         }
       ],
       "cleanup": [
@@ -566,12 +539,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://www.ffmpeg.org/releases/ffmpeg-4.2.3.tar.xz",
-          "sha256": "9df6c90aed1337634c1fb026fb01c154c29c82a64ea71291ff2da9aacb9aad31"
-        },
-        {
-          "type": "patch",
-          "path": "patches/ffmpeg-as-fix.patch"
+          "url": "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz",
+          "sha256": "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
         }
       ],
       "cleanup": [
@@ -652,8 +621,8 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "9.0",
-          "commit": "8628bb4f4cecaeac1dc237191fd685636864b6c8"
+          "tag": "9.2",
+          "commit": "150eba8eb37e5f196c7dedd4b2af3bbda89a6365"
         },
         {
           "type": "file",
