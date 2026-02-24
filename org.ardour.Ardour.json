@@ -135,6 +135,214 @@
                 }
             ]
         },
+        {
+            "name": "atkmm",
+            "build-options": {
+                "cxxflags": "-std=gnu++14"
+            },
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/atkmm-1.6"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/atkmm/2.24/atkmm-2.24.2.tar.xz",
+                    "sha256": "ff95385759e2af23828d4056356f25376cfabc41e690ac1df055371537e458bd"
+                }
+            ]
+        },
+        {
+            "name": "intltool",
+            "cleanup": [
+                "*.la"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                },
+                {
+                    "type": "patch",
+                    "path": "shared-modules/intltool/intltool-perl5.26-regex-fixes.patch"
+                }
+            ]
+        },
+        {
+            "name": "gtk2",
+            "cleanup": [
+                "/bin",
+                "/share/gtk-2.0",
+                "/share/aclocal",
+                "/share/gtk-doc",
+                "/lib/pkgconfig",
+                "/lib/gtk-2.0/include",
+                "/include",
+                "*.la"
+            ],
+            "x-cpe": {
+                "product": "gtk+"
+            },
+            "build-options": {
+                "cflags": "-Wno-error=incompatible-pointer-types -Wno-error=missing-attributes -Wno-error=pointer-sign -Wno-error=implicit-function-declaration -Wno-error=implicit-int",
+                "cxxflags": "-Wno-error=incompatible-pointer-types -Wno-error=missing-attributes -Wno-error=pointer-sign -Wno-error=implicit-function-declaration -Wno-error=implicit-int"
+            },
+            "config-opts": [
+                "--disable-dependency-tracking",
+                "--disable-gtk-doc-html",
+                "--disable-introspection",
+                "--with-xinput=xfree"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.33.tar.xz",
+                    "sha256": "ac2ac757f5942d318a311a54b0c80b5ef295f299c2a73c632f6bfb1ff49cc6da"
+                },
+                {
+                    "type": "patch",
+                    "path": "shared-modules/gtk2/gtk2-use-adwaita-theme.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": "shared-modules/gtk2/gtk2-fix-crash-in-show-uri.patch"
+                }
+            ]
+        },
+        {
+            "name": "gnome-themes-extra",
+            "rm-configure": true,
+            "config-opts": [
+                "--disable-dependency-tracking",
+                "--disable-gtk3-engine"
+            ],
+            "cleanup": [
+                "/share/themes/Adwaita/gtk-3.0",
+                "/share/themes/Adwaita-dark/gtk-3.0",
+                "/share/themes/HighContrast/gtk-3.0",
+                "*.la"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/gnome-themes-extra/3.28/gnome-themes-extra-3.28.tar.xz",
+                    "sha256": "7c4ba0bff001f06d8983cfc105adaac42df1d1267a2591798a780bac557a5819"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "sed -i 's/icons//' themes/HighContrast/Makefile.am"
+                    ]
+                },
+                {
+                    "type": "script",
+                    "commands": [
+                        "autoreconf -fsi"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ibus-gtk2",
+            "build-options": {
+                "cflags": "-std=gnu89 -Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=calloc-transposed-args"
+            },
+            "config-opts": [
+                "--disable-xim",
+                "--disable-dconf",
+                "--disable-gconf",
+                "--disable-memconf",
+                "--disable-schemas-compile",
+                "--disable-schemas-install",
+                "--disable-gtk3",
+                "--disable-setup",
+                "--disable-ui",
+                "--disable-engine",
+                "--disable-python-library",
+                "--disable-libnotify",
+                "--disable-emoji-dict",
+                "--disable-appindicator",
+                "--disable-glibtest",
+                "--disable-tests",
+                "--disable-unicode-dict",
+                "--disable-introspection",
+                "--disable-python2"
+            ],
+            "make-install-args": [
+                "-C",
+                "client/gtk2"
+            ],
+            "post-install": [
+                "gtk-query-immodules-2.0 > immodules.cache",
+                "install immodules.cache -t $(pkg-config --variable=libdir gtk+-2.0)/gtk-2.0/2.10.0/"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/ibus/ibus/releases/download/1.5.23/ibus-1.5.23.tar.gz",
+                    "sha256": "b7e8d5bdb7d71a5ba4ee43cdf374675f77121a71c1679c9b9e7e02875bd0e150"
+                }
+            ]
+        },
+        {
+            "name": "gtkmm2",
+            "build-options": {
+                "cxxflags": "-std=gnu++14"
+            },
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/gtkmm-2.4",
+                "/lib/gdkmm-2.4"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz",
+                    "sha256": "0680a53b7bf90b4e4bf444d1d89e6df41c777e0bacc96e9c09fc4dd2f5fe6b72"
+                }
+            ]
+        },
+        {
+            "name": "lv2",
+            "buildsystem": "meson",
+            "cleanup": [
+                "/bin",
+                "/include",
+                "/lib/pkgconfig",
+                "/share"
+            ],
+            "sources": [
+                {
+                    /* Ardour */
+                    "type": "archive",
+                    "url": "https://lv2plug.in/spec/lv2-1.18.10.tar.xz",
+                    "sha256": "78c51bcf21b54e58bb6329accbb4dae03b2ed79b520f9a01e734bd9de530953f"
+                }
+            ]
+        },
+        {
+            "name": "suil",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dgtk2=enabled",
+                "-Dgtk3=disabled",
+                "-Dqt5=disabled"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.drobilla.net/suil-0.10.26.tar.xz",
+                    "sha256": "62808916602c47d201a1ec2d246323a8048243f2bf972f859f0db1db4662ee43"
+                }
+            ]
+        },
     {
       "name" : "boost",
       "buildsystem" : "simple",
@@ -230,24 +438,6 @@
       ]
     },
     {
-      "name": "lv2",
-      "buildsystem": "meson",
-      "cleanup": [
-        "/bin",
-        "/include",
-        "/lib/pkgconfig",
-        "/share"
-      ],
-      "sources": [
-        {
-          /* Ardour */
-          "type": "archive",
-          "url": "https://lv2plug.in/spec/lv2-1.18.10.tar.xz",
-          "sha256": "78c51bcf21b54e58bb6329accbb4dae03b2ed79b520f9a01e734bd9de530953f"
-        }
-      ]
-    },
-    {
       "name": "sndfile",
       "build-options": {
         "cflags": "-std=c18"
@@ -261,6 +451,17 @@
           "type": "archive",
           "url": "http://ardour.org/files/deps/libsndfile-1.1.0-41-gd8503a66.tar.xz",
           "sha256": "a1fb3f96588f700fa04de20e9516004231ffdc87f080e3faaa1a97571e639c7a"
+        }
+      ]
+    },
+    {
+      "name": "utf8cpp",
+      "buildsystem": "cmake-ninja",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/nemtrif/utfcpp/archive/refs/tags/v4.0.6.tar.gz",
+          "sha256": "6920a6a5d6a04b9a89b2a89af7132f8acefd46e0c2a7b190350539e9213816c0"
         }
       ]
     },
@@ -426,6 +627,23 @@
       "name": "lilv",
       "buildsystem": "meson",
       "modules": [
+        {
+          "name": "zix",
+          "buildsystem": "meson",
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://download.drobilla.net/zix-0.6.2.tar.xz",
+              "sha256": "4bc771abf4fcf399ea969a1da6b375f0117784f8fd0e2db356a859f635f616a7"
+            }
+          ],
+          "cleanup": [
+            "/bin",
+            "/include",
+            "/lib/pkgconfig",
+            "/share/man"
+          ]
+        },
         {
           "name": "serd",
           "buildsystem": "meson",
