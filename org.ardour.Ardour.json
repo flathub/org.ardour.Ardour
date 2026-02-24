@@ -13,19 +13,24 @@
   ],
   "finish-args": [
     "--share=ipc",
-    "--socket=wayland",
-    "--socket=fallback-x11",
-    "--socket=pulseaudio",
+    "--socket=x11",
+    "--device=dri",
     "--device=all",
     "--filesystem=home",
     "--share=network",
     "--env=ALSA_CONFIG_PATH=",
     "--own-name=org.freedesktop.ReserveDevice1.*",
     "--filesystem=xdg-run/pipewire-0",
+    "--system-talk-name=org.freedesktop.Realtime1",
     "--env=TMPDIR=/var/tmp",
     "--env=LXVST_PATH=/app/extensions/Plugins/vst",
     "--env=VST3_PATH=/app/extensions/Plugins/vst3",
-    "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa:/app/lib/ladspa"
+    "--env=LADSPA_PATH=/app/extensions/Plugins/ladspa:/app/lib/ladspa",
+    "--env=GDK_BACKEND=x11",
+    "--env=GDK_SCALE=1",
+    "--env=XCURSOR_SIZE=24",
+    "--env=GDK_CORE_DEVICE_EVENTS=1",
+    "--env=LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/pipewire-0.3/jack"
   ],
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
@@ -346,13 +351,8 @@
     {
       "name" : "boost",
       "buildsystem" : "simple",
-      "cleanup" : [
-        "/include",
-        "/lib/libboost_*.so*",
-        "/lib/libboost_*.a"
-      ],
       "build-commands" : [
-        "./bootstrap.sh --with-libraries=atomic",
+        "./bootstrap.sh",
         "./b2 install variant=release link=shared runtime-link=shared --prefix=/app -j $FLATPAK_BUILDER_N_JOBS"
       ],
       "sources" : [
@@ -820,7 +820,9 @@
           "cppflags": "-DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_56 -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56"
       },
       "build-commands": [
-        "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
+        "export CFLAGS=\"-Wno-deprecated-declarations $CFLAGS\"",
+        "export CXXFLAGS=\"-Wno-deprecated-declarations $CXXFLAGS\"",
+        "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --no-phone-home --freedesktop --with-backends=alsa,dummy,jack --cxx17 --ptformat",
         "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf i18n -j $FLATPAK_BUILDER_N_JOBS",
         "python3 ./waf install"
