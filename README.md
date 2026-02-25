@@ -9,7 +9,7 @@ Dependencies
 The dependencies for Ardour are non standard. We try to use what is
 listed at https://nightly.ardour.org/list.php#build_deps
 
-This is to provide the best experience to upstream binary builds.
+This is to provide the closest from upstream binary builds.
 
 Plugins support
 ---------------
