@@ -20,7 +20,7 @@
     "--share=network",
     "--env=ALSA_CONFIG_PATH=",
     "--own-name=org.freedesktop.ReserveDevice1.*",
-    "--filesystem=xdg-run/pipewire-0",
+    "--filesystem=xdg-run/pipewire-0:ro",
     "--env=TMPDIR=/var/tmp",
     "--env=LXVST_PATH=/app/extensions/Plugins/vst",
     "--env=VST3_PATH=/app/extensions/Plugins/vst3",
