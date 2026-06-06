@@ -37,15 +37,18 @@
     }
   },
   "cleanup": [
-    "/include",
-    "/lib/pkgconfig",
-    "/share/info"
+      "/include",
+      "/lib/cmake",
+      "/lib/pkgconfig",
+      "/share/info",
+      "/share/man",
+      "*.a",
+      "*.la"
   ],
   "modules": [
         {
             "name": "sigc++-2",
             "cleanup": [
-                "/include",
                 "/lib/sigc++-2.0"
             ],
             "build-options": {
@@ -72,9 +75,7 @@
                 "--disable-documentation"
             ],
             "cleanup": [
-                "/include",
-                "/lib/cairomm-1.0",
-                "*.la"
+                "/lib/cairomm-1.0"
             ],
             "sources": [
                 {
@@ -94,11 +95,9 @@
                 "--disable-documentation"
             ],
             "cleanup": [
-                "/include",
                 "/lib/giomm-2.4",
                 "/lib/glibmm-2.4",
-                "/lib/*.so",
-                "*.la"
+                "/lib/*.so"
             ],
             "sources": [
                 {
@@ -112,7 +111,6 @@
         {
             "name": "pangomm",
             "cleanup": [
-                "/include",
                 "/lib/pangomm-1.4"
             ],
             "build-options": {
@@ -138,9 +136,7 @@
       "name" : "boost",
       "buildsystem" : "simple",
       "cleanup" : [
-        "/include",
-        "/lib/libboost_*.so*",
-        "/lib/libboost_*.a"
+        "/lib/libboost_*.so*"
       ],
       "build-commands" : [
         "./bootstrap.sh --with-libraries=atomic",
@@ -157,18 +153,10 @@
     {
       "name": "lrdf",
       "rm-configure": true,
-      "cleanup": [
-        "/include",
-        "/share/man",
-        "/lib/pkgconfig",
-        "*.a"
-      ],
       "modules": [
         {
           "name": "raptor2",
           "cleanup": [
-            "/include",
-            "/lib/pkgconfig",
             "/share/gtk-doc"
           ],
           "config-opts": [
@@ -210,9 +198,6 @@
       "name": "liblo",
       "cleanup": [
         "/bin",
-        "/include",
-        "/lib/pkgconfig",
-        "*.la",
         "*.so"
       ],
       "build-options": {
@@ -238,8 +223,6 @@
       ],
       "cleanup": [
         "/bin",
-        "/include",
-        "/lib/pkgconfig",
         "/share"
       ],
       "sources": [
@@ -260,7 +243,8 @@
         "cflags": "-std=c18"
       },
       "cleanup": [
-        ".a"
+	  "/bin",
+          "/share/doc"
       ],
       "sources": [
         {
@@ -279,8 +263,6 @@
         "-DBUILD_SHARED_LIBS=ON"
       ],
       "cleanup": [
-        "/include",
-        "/lib/pkgconfig",
         "/lib/*.so"
       ],
       "sources": [
@@ -305,8 +287,6 @@
       ],
       "cleanup": [
         "/bin",
-        "/include",
-        "/lib/pkgconfig",
         "*.a"
       ]
     },
@@ -332,9 +312,7 @@
       ],
       "cleanup": [
         "/bin",
-        "/include",
         "/share/ladspa",
-        "*.a",
         "*.so"
       ]
     },
@@ -372,11 +350,6 @@
       ],
       "cleanup": [
         "/bin",
-        "/include",
-        "/lib/cmake",
-        "/lib/pkgconfig",
-        "/share/man",
-        "*.la",
         "*.so"
       ]
     },
@@ -384,10 +357,7 @@
       "name": "aubio",
       "buildsystem": "autotools",
       "cleanup": [
-        "/bin",
-        "/include",
-        "/lib/pkgconfig",
-        "*.a"
+        "/bin"
       ],
       "build-options": {
         "ldflags": "-lm"
@@ -410,9 +380,6 @@
     {
       "name": "libusb",
       "cleanup": [
-        "/include",
-        "/lib/pkgconfig",
-        "*.la",
         "*.so"
       ],
       "no-parallel-make": true,
@@ -455,10 +422,7 @@
             }
           ],
           "cleanup": [
-            "/bin",
-            "/include",
-            "/lib/pkgconfig",
-            "/share/man"
+            "/bin"
           ]
         },
         {
@@ -478,10 +442,7 @@
             }
           ],
           "cleanup": [
-            "/bin",
-            "/include",
-            "/lib/pkgconfig",
-            "/share/man"
+            "/bin"
           ]
         },
         {
@@ -491,10 +452,6 @@
             "python3 ./waf configure --prefix=$FLATPAK_DEST",
             "python3 ./waf build -j $FLATPAK_BUILDER_N_JOBS",
             "python3 ./waf install"
-          ],
-          "cleanup": [
-            "/include",
-            "/lib/pkgconfig"
           ],
           "sources": [
             {
@@ -516,10 +473,7 @@
       ],
       "cleanup": [
         "/bin",
-        "/etc",
-        "/include",
-        "/lib/pkgconfig",
-        "/share/man"
+        "/etc"
       ]
     },
     {
@@ -527,10 +481,7 @@
       "buildsystem": "cmake-ninja",
       "cleanup": [
         "/bin",
-        "/include",
-        "/lib/cmake",
         "/share/libwebsockets-test-server",
-        "*.a",
         "*.so"
       ],
       "build-options": {
@@ -580,9 +531,6 @@
     },
     {
       "name": "xjadeo",
-      "cleanup": [
-        "/share/man"
-      ],
       "sources": [
         {
           "type": "archive",
@@ -602,9 +550,6 @@
       "build-commands": [
         "make",
         "make install"
-      ],
-      "cleanup": [
-        "/share/man"
       ],
       "post-install": [
         "ln -s ${FLATPAK_DEST}/bin/ffmpeg ${FLATPAK_DEST}/bin/ffmpeg_harvid",
@@ -644,8 +589,8 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "9.5",
-          "commit": "c664596f9d69b3f210404870760511798891355b"
+          "tag": "9.7",
+          "commit": "38612bb9fae4c0bf6a8f9e42e13baa1039b291fe"
         },
         {
           "type": "file",

@@ -7,7 +7,7 @@ index bd7d86c..ac6af81 100644
      </p>
    </description>
 +  <content_rating type="oars-1.1" />
-+  <launchable type="desktop-id">org.ardour.Ardour.desktop</launchable>
++  <launchable type="desktop-id">ardour9.desktop</launchable>
 +  <developer id="org.ardour">
 +    <name>Ardour Developers</name>
 +  </developer>
