@@ -89,7 +89,7 @@
         {
             "name": "glibmm",
             "build-options": {
-                "cxxflags": "-std=gnu++14"
+                "cxxflags": "-std=gnu++14 -Wno-deprecated-declarations -Wno-template-id-cdtor"
             },
             "config-opts" : [
                 "--disable-documentation"
@@ -114,7 +114,7 @@
                 "/lib/pangomm-1.4"
             ],
             "build-options": {
-                "cxxflags": "-std=gnu++14"
+                "cxxflags": "-std=gnu++14 -Wno-deprecated-declarations -Wno-template-id-cdtor"
             },
             "config-opts" : [
                 "--disable-documentation"
@@ -567,7 +567,8 @@
       "name": "ardour",
       "buildsystem": "simple",
       "build-options": {
-          "cppflags": "-DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_56 -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56"
+          "cppflags": "-DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_56 -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56",
+          "cxxflags": "-Wno-deprecated-declarations -Wno-template-id-cdtor"
       },
       "build-commands": [
         "python3 ./waf configure --prefix=/app --optimize --dist-target=$FLATPAK_ARCH --debug-symbols --no-phone-home --freedesktop --with-backends=alsa,dummy,pulseaudio,jack",
@@ -589,8 +590,8 @@
         {
           "type": "git",
           "url": "https://github.com/Ardour/ardour.git",
-          "tag": "9.7",
-          "commit": "38612bb9fae4c0bf6a8f9e42e13baa1039b291fe"
+          "tag": "9.8",
+          "commit": "22ed8656c2533e325322ff11831448e5123e0d4b"
         },
         {
           "type": "file",
