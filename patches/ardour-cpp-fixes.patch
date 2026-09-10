@@ -1,0 +1,610 @@
+diff --git a/gtk2_ardour/ardour_ui.cc b/gtk2_ardour/ardour_ui.cc
+index 7d34784a05..51a121aea2 100644
+--- a/gtk2_ardour/ardour_ui.cc
++++ b/gtk2_ardour/ardour_ui.cc
+@@ -1377,7 +1377,7 @@ ARDOUR_UI::format_disk_space_label (float remain_sec)
+ 	std::string label = string_compose (X_("<span weight=\"ultralight\">%1</span>: "), _("Rec"));
+ 
+ 	if (_session && FLAC == _session->config.get_native_file_header_format () && remain_sec <= 86400) {
+-		label += u8"\u2265"; // Greater-Than or Equal To
++		label += "\u2265"; // Greater-Than or Equal To
+ 	}
+ 
+ 	if (remain_sec > 86400) {
+diff --git a/gtk2_ardour/audio_clock.cc b/gtk2_ardour/audio_clock.cc
+index 10c28c4f35..fee3cf6e19 100644
+--- a/gtk2_ardour/audio_clock.cc
++++ b/gtk2_ardour/audio_clock.cc
+@@ -1357,10 +1357,10 @@ AudioClock::set_bbt (timecnt_t const & w)
+ 		TempoMetric m (tmap->metric_at (pos));
+ 
+ 		if (m.tempo().note_type() == 4) {
+-			snprintf (buf, sizeof(buf), u8"\u2669 = %.3f", m.tempo().note_types_per_minute_at_DOUBLE (pos));
++			snprintf (buf, sizeof(buf), "\u2669 = %.3f", m.tempo().note_types_per_minute_at_DOUBLE (pos));
+ 			_left_btn.set_text (string_compose ("%1", buf), false);
+ 		} else if (m.tempo().note_type() == 8) {
+-			snprintf (buf, sizeof(buf), u8"\u266a = %.3f", m.tempo().note_types_per_minute_at_DOUBLE (pos));
++			snprintf (buf, sizeof(buf), "\u266a = %.3f", m.tempo().note_types_per_minute_at_DOUBLE (pos));
+ 			_left_btn.set_text (string_compose ("%1", buf), false);
+ 		} else {
+ 			snprintf (buf, sizeof(buf), "1/%d = %.3f",m.tempo().note_type(), m.tempo().note_types_per_minute_at_DOUBLE (pos));
+diff --git a/gtk2_ardour/automation_line.cc b/gtk2_ardour/automation_line.cc
+index 3be3722fa4..19ea28e670 100644
+--- a/gtk2_ardour/automation_line.cc
++++ b/gtk2_ardour/automation_line.cc
+@@ -493,7 +493,7 @@ AutomationLine::delta_to_string (double delta) const
+ 			default:
+ 				break;
+ 		}
+-		return u8"\u0394 " + ARDOUR::value_as_string (_desc, delta);
++		return "\u0394 " + ARDOUR::value_as_string (_desc, delta);
+ 	}
+ }
+ 
+diff --git a/gtk2_ardour/beatbox_gui.cc b/gtk2_ardour/beatbox_gui.cc
+index a26336d739..5d9411261d 100644
+--- a/gtk2_ardour/beatbox_gui.cc
++++ b/gtk2_ardour/beatbox_gui.cc
+@@ -599,9 +599,9 @@ void
+ SequencerStepIndicator::set_text ()
+ {
+ 	if (number == sv.sequencer().end_step() - 1) {
+-		text->set (u8"\u21a9");
++		text->set ("\u21a9");
+ 	} else if (number == sv.sequencer().start_step()) {
+-		text->set (u8"\u21aa");
++		text->set ("\u21aa");
+ 	} else {
+ 		text->set (string_compose ("%1", number+1));
+ 	}
+diff --git a/gtk2_ardour/editor_markers.cc b/gtk2_ardour/editor_markers.cc
+index 763f1f6347..3b05f3450f 100644
+--- a/gtk2_ardour/editor_markers.cc
++++ b/gtk2_ardour/editor_markers.cc
+@@ -224,7 +224,7 @@ Editor::add_new_location_internal (Location* location)
+ 
+ #if 0
+ 	if (location->position_time_domain() == Temporal::BeatTime) {
+-		lam->set_name (string_compose ("%1%2", u8"\u266B", location->name ())); // BEAMED EIGHTH NOTES
++		lam->set_name (string_compose ("%1%2", "\u266B", location->name ())); // BEAMED EIGHTH NOTES
+ 	}
+ #endif
+ 
+diff --git a/gtk2_ardour/editor_snapshots.cc b/gtk2_ardour/editor_snapshots.cc
+index ad30dc30ae..bdb57f0148 100644
+--- a/gtk2_ardour/editor_snapshots.cc
++++ b/gtk2_ardour/editor_snapshots.cc
+@@ -240,7 +240,7 @@ EditorSnapshots::redisplay ()
+ 		Glib::DateTime gdt(Glib::DateTime::create_now_local (gsb.st_mtime));
+ 
+ 		if (_session->snap_name() == display_name) {
+-			row[_columns.current_active] = u8"\u25B6"; // BLACK RIGHT-POINTING TRIANGLE
++			row[_columns.current_active] = "\u25B6"; // BLACK RIGHT-POINTING TRIANGLE
+ 		} else {
+ 			row[_columns.current_active] = "";
+ 		}
+diff --git a/gtk2_ardour/export_report.cc b/gtk2_ardour/export_report.cc
+index ccfb4a9684..4acca63597 100644
+--- a/gtk2_ardour/export_report.cc
++++ b/gtk2_ardour/export_report.cc
+@@ -691,13 +691,13 @@ ExportReport::init (const AnalysisResults & ar, bool with_file)
+ 			int max_wx = 10;
+ 			layout->set_font_description (UIConfiguration::instance ().get_ArdourLargeFont ());
+ 
+-			layout->set_text (u8"\u274C"); // cross mark
++			layout->set_text ("\u274C"); // cross mark
+ 			layout->get_pixel_size (w, h);
+ 			max_wx = std::max (max_wx, w);
+-			layout->set_text (u8"\U0001F509"); // speaker icon w/1 bar
++			layout->set_text ("\U0001F509"); // speaker icon w/1 bar
+ 			layout->get_pixel_size (w, h);
+ 			max_wx = std::max (max_wx, w);
+-			layout->set_text (u8"\u2714"); // heavy check mark
++			layout->set_text ("\u2714"); // heavy check mark
+ 			layout->get_pixel_size (w, h);
+ 			max_wx = std::max (max_wx, w);
+ 
+@@ -774,13 +774,13 @@ ExportReport::init (const AnalysisResults & ar, bool with_file)
+ 						|| (pi->enable[1] && dbtp > pi->level[1])
+ 					 ) {
+ 					cr->set_source_rgba (1, 0, .0, 1.0);
+-					layout->set_text (u8"\u274C"); // cross mark
++					layout->set_text ("\u274C"); // cross mark
+ 				} else if (lufs < pi->LUFS_range[1]) {
+ 					cr->set_source_rgba (.6, .7, 0, 1.0);
+-					layout->set_text (u8"\U0001F509"); // speaker icon w/1 bar
++					layout->set_text ("\U0001F509"); // speaker icon w/1 bar
+ 				} else {
+ 					cr->set_source_rgba (.1, 1, .1, 1.0);
+-					layout->set_text (u8"\u2714"); // heavy check mark
++					layout->set_text ("\u2714"); // heavy check mark
+ 				}
+ 				int ww, hh;
+ 				layout->get_pixel_size (ww, hh);
+diff --git a/gtk2_ardour/idleometer.cc b/gtk2_ardour/idleometer.cc
+index dae7a25d8a..8fc98367ce 100644
+--- a/gtk2_ardour/idleometer.cc
++++ b/gtk2_ardour/idleometer.cc
+@@ -67,7 +67,7 @@ IdleOMeter::IdleOMeter ()
+ 	t->attach (*manage (new Label (_("Mean:"),    ALIGN_END)), 0, 1, row, row + 1, FILL, SHRINK);
+ 	t->attach (_label_avg, 1, 2, row, row + 1, FILL, SHRINK);
+ 	++row;
+-	t->attach (*manage (new Label (_(u8"\u03c3:"),  ALIGN_END)), 0, 1, row, row + 1, FILL, SHRINK);
++	t->attach (*manage (new Label (_("\u03c3:"),  ALIGN_END)), 0, 1, row, row + 1, FILL, SHRINK);
+ 	t->attach (_label_dev, 1, 2, row, row + 1, FILL, SHRINK);
+ 	++row;
+ 	t->attach (*manage (new Label (_("Elapsed:"),  ALIGN_END)), 0, 1, row, row + 1, FILL, SHRINK);
+diff --git a/gtk2_ardour/instrument_selector.cc b/gtk2_ardour/instrument_selector.cc
+index 61d5f1543c..b780f2cfb6 100644
+--- a/gtk2_ardour/instrument_selector.cc
++++ b/gtk2_ardour/instrument_selector.cc
+@@ -169,7 +169,7 @@ InstrumentSelector::build_instrument_list()
+ 		uint32_t n_outs = p->max_configurable_outputs ();
+ 		if (n_outs > 2) {
+ 			if (p->reconfigurable_io ()) {
+-				suffix = string_compose(_(u8"\u2264 %1 outs"), n_outs);
++				suffix = string_compose(_("\u2264 %1 outs"), n_outs);
+ 			} else {
+ 				suffix = string_compose(_("%1 outs"), n_outs);
+ 			}
+@@ -179,7 +179,7 @@ InstrumentSelector::build_instrument_list()
+ 			uint32_t n_outs = p->max_configurable_outputs ();
+ 			if (n_outs > 2) {
+ 				if (p->reconfigurable_io ()) {
+-					suffix = string_compose(_(u8"\u2264 %1 outs"), n_outs);
++					suffix = string_compose(_("\u2264 %1 outs"), n_outs);
+ 				} else {
+ 					suffix = string_compose(_("%1 outs"), n_outs);
+ 				}
+diff --git a/gtk2_ardour/io_button.cc b/gtk2_ardour/io_button.cc
+index d51759f337..f57bdb25f9 100644
+--- a/gtk2_ardour/io_button.cc
++++ b/gtk2_ardour/io_button.cc
+@@ -427,7 +427,7 @@ IOButtonBase::set_label (IOButtonBase& self, ARDOUR::Session& session, std::shar
+ 	}
+ 
+ 	if (total_connection_count > typed_connection_count) {
+-		label << u8"\u2295"; /* circled plus */
++		label << "\u2295"; /* circled plus */
+ 	}
+ 
+ 	self.set_text (label.str ());
+diff --git a/gtk2_ardour/loudness_dialog.cc b/gtk2_ardour/loudness_dialog.cc
+index 6ac49cc3a3..999f9c4145 100644
+--- a/gtk2_ardour/loudness_dialog.cc
++++ b/gtk2_ardour/loudness_dialog.cc
+@@ -775,7 +775,7 @@ LoudnessDialog::calculate_gain ()
+ 	_gain_norm_label.set_text (string_compose (_("%1 dB"), std::setprecision (2), std::showpos, std::fixed, _gain_norm));
+ 	if (!in_range) {
+ 		_gain_exceeds_label.set_text (_("exceeds"));
+-		_gain_total_label.set_markup (_(u8"<b>    \u00B140 dB</b>"));
++		_gain_total_label.set_markup (_("<b>    \u00B140 dB</b>"));
+ 	} else {
+ 		_gain_exceeds_label.set_text (X_(""));
+ 		_gain_total_label.set_markup (string_compose (_("<b>%1 dB</b>"), std::setw (7), std::setprecision (2), std::showpos, std::fixed, gain_db ()));
+@@ -820,21 +820,21 @@ LoudnessDialog::test_conformity ()
+ 		    || (preset.enable[0] && dbfs > preset.level[0])
+ 		    || (preset.enable[1] && dbtp > preset.level[1])
+ 		   ) {
+-			l = manage (new Label (u8"\u274C", ALIGN_CENTER)); // cross mark
++			l = manage (new Label ("\u274C", ALIGN_CENTER)); // cross mark
+ 			l->modify_font (UIConfiguration::instance ().get_ArdourBigFont ());
+ 			l->modify_fg (Gtk::STATE_NORMAL, color_fail);
+ 			set_tooltip (*l, "The signal is too loud.");
+ 		} else if (lufs_i < preset.LUFS_range[1]) {
+-			l = manage (new Label (u8"\U0001F509", ALIGN_CENTER)); // speaker icon w/1 bar
++			l = manage (new Label ("\U0001F509", ALIGN_CENTER)); // speaker icon w/1 bar
+ 			l->modify_font (UIConfiguration::instance ().get_ArdourBigFont ());
+ 			l->modify_fg (Gtk::STATE_NORMAL, color_warn);
+ 			set_tooltip (*l, "The signal is too quiet, but satisfies the max. loudness spec.");
+ 		} else {
+-			l = manage (new Label (u8"\u2714", ALIGN_CENTER)); // heavy check mark
++			l = manage (new Label ("\u2714", ALIGN_CENTER)); // heavy check mark
+ 			l->modify_font (UIConfiguration::instance ().get_ArdourBigFont ());
+ 			l->modify_fg (Gtk::STATE_NORMAL, color_good);
+ 			set_tooltip (*l, "Signal loudness is within the spec.");
+-			Gtkmm2ext::set_size_request_to_display_given_text (*l, u8"\u274C\u2713", 0, 0);
++			Gtkmm2ext::set_size_request_to_display_given_text (*l, "\u274C\u2713", 0, 0);
+ 		}
+ 
+ 		t->attach (*l, col + 1, col + 2, row, row + 1, SHRINK, SHRINK, 2, 0);
+diff --git a/gtk2_ardour/plugin_eq_gui.cc b/gtk2_ardour/plugin_eq_gui.cc
+index f9cfa24677..f7f356ed14 100644
+--- a/gtk2_ardour/plugin_eq_gui.cc
++++ b/gtk2_ardour/plugin_eq_gui.cc
+@@ -150,7 +150,7 @@ PluginEqGui::PluginEqGui (std::shared_ptr<ARDOUR::PluginInsert> pluginInsert)
+ 	// Freq/dB info for mouse over
+ 	_pointer_info = new Gtk::Label ("", 1, 0.5);
+ 	_pointer_info->set_name ("PluginAnalysisInfoLabel");
+-	Gtkmm2ext::set_size_request_to_display_given_text (*_pointer_info, u8"10.0kHz_000.0dB_180.0\u00B0", 0, 0);
++	Gtkmm2ext::set_size_request_to_display_given_text (*_pointer_info, "10.0kHz_000.0dB_180.0\u00B0", 0, 0);
+ 
+ 	// populate table
+ 	attach (*manage(_analysis_area), 0, 4, 0, 1);
+@@ -507,7 +507,7 @@ PluginEqGui::update_pointer_info (float x)
+ 	if (_phase_button->get_active ()) {
+ 		float phase = 180. * _impulse_fft->phase_at_bin (i) / M_PI;
+ 		ss << " " << std::setw (6) << std::setprecision (1) << std::showpos << phase;
+-		ss << std::setw (0) << u8"\u00B0";
++		ss << std::setw (0) << "\u00B0";
+ 	}
+ 	_pointer_info->set_text (ss.str());
+ }
+@@ -625,9 +625,9 @@ PluginEqGui::draw_scales_phase (Gtk::Widget*, cairo_t *cr)
+ 
+ 		cairo_set_source_rgb (cr, .8, .9, 0.2);
+ 		if (i == 0) {
+-			snprintf (buf,256, u8"0\u00b0");
++			snprintf (buf,256, "0\u00b0");
+ 		} else {
+-			snprintf (buf,256, u8"%d\u00b0", (i * 45));
++			snprintf (buf,256, "%d\u00b0", (i * 45));
+ 		}
+ 		cairo_text_extents (cr, buf, &t_ext);
+ 		cairo_move_to (cr, _analysis_width - t_ext.width - t_ext.x_bearing - 2.0, y - extents.descent);
+@@ -649,7 +649,7 @@ PluginEqGui::draw_scales_phase (Gtk::Widget*, cairo_t *cr)
+ 		y = roundf (y);
+ 
+ 		// label
+-		snprintf (buf,256, u8"-%d\u00b0", (i * 45));
++		snprintf (buf,256, "-%d\u00b0", (i * 45));
+ 		cairo_set_source_rgb (cr, .8, .9, 0.2);
+ 		cairo_text_extents (cr, buf, &t_ext);
+ 		cairo_move_to (cr, _analysis_width - t_ext.width - t_ext.x_bearing - 2.0, y - extents.descent);
+diff --git a/gtk2_ardour/rec_info_box.cc b/gtk2_ardour/rec_info_box.cc
+index df30121cab..bee79c6c78 100644
+--- a/gtk2_ardour/rec_info_box.cc
++++ b/gtk2_ardour/rec_info_box.cc
+@@ -347,7 +347,7 @@ RemainInfoBox::render (Cairo::RefPtr<Cairo::Context> const& cr, cairo_rectangle_
+ 		char buf[32];
+ 
+ 		bool  at_least     = FLAC == _session->config.get_native_file_header_format ();
+-		const char* prefix = at_least ? u8"\u2265" : ""; // Greater-Than or Equal To
++		const char* prefix = at_least ? "\u2265" : ""; // Greater-Than or Equal To
+ 
+ 		if (remain_sec > 86400) {
+ 			_layout_value->set_text (_(">24h"));
+diff --git a/gtk2_ardour/region_view.cc b/gtk2_ardour/region_view.cc
+index cb68b3b2ae..19245d38eb 100644
+--- a/gtk2_ardour/region_view.cc
++++ b/gtk2_ardour/region_view.cc
+@@ -778,14 +778,14 @@ RegionView::make_name () const
+ 
+ 	// XXX nice to have some good icons for this
+ 	if (_region->position_time_domain() == Temporal::BeatTime) {
+-		str += u8"\u266B "; // BEAMED EIGHTH NOTES
++		str += "\u266B "; // BEAMED EIGHTH NOTES
+ 	}
+ 
+ 	if (_region->locked()) {
+-		str += u8"\u2629 "; // CROSS OF JERUSALEM
++		str += "\u2629 "; // CROSS OF JERUSALEM
+ 		str += _region->name();
+ 	} else if (_region->position_locked()) {
+-		str += u8"\u21B9 "; // LEFTWARDS ARROW TO BAR OVER RIGHTWARDS ARROW TO BAR
++		str += "\u21B9 "; // LEFTWARDS ARROW TO BAR OVER RIGHTWARDS ARROW TO BAR
+ 		str += _region->name();
+ 	} else if (_region->video_locked()) {
+ 		str += '[';
+@@ -796,7 +796,7 @@ RegionView::make_name () const
+ 	}
+ 
+ 	if (_region->muted()) {
+-		str = std::string(u8"\U0001F507 ") + str; // SPEAKER WITH CANCELLATION STROKE
++		str = std::string("\U0001F507 ") + str; // SPEAKER WITH CANCELLATION STROKE
+ 	}
+ 	if (_region->has_region_fx()) {
+ 		str = str + " (Fx)";
+diff --git a/gtk2_ardour/sfdb_ui.cc b/gtk2_ardour/sfdb_ui.cc
+index 71980149a7..22ed0d058d 100644
+--- a/gtk2_ardour/sfdb_ui.cc
++++ b/gtk2_ardour/sfdb_ui.cc
+@@ -371,7 +371,7 @@ SoundFileBox::setup_labels (const string& filename)
+ 			case 1: {
+ 				Evoral::SMF::Tempo* t = smf.nth_tempo (0);
+ 				assert (t);
+-				tempomap_value.set_text (string_compose (_(u8"%1/%2 \u2669 = %3"),
++				tempomap_value.set_text (string_compose (_("%1/%2 \u2669 = %3"),
+ 				                                         t->numerator,
+ 				                                         t->denominator,
+ 				                                         t->tempo ()));
+diff --git a/gtk2_ardour/step_entry.cc b/gtk2_ardour/step_entry.cc
+index c019a86f46..609381c144 100644
+--- a/gtk2_ardour/step_entry.cc
++++ b/gtk2_ardour/step_entry.cc
+@@ -191,24 +191,24 @@ StepEntry::StepEntry ()
+ 	note_velocity_box.pack_start (velocity_fff_button, false, false);
+ 
+ 	/* https://www.unicode.org/charts/PDF/U1D100.pdf */
+-	velocity_ppp_button.set_text (u8"\U0001D18F\U0001D18F\U0001D18F"); //MUSICAL SYMBOL PIANO (U+1D18F)
+-	velocity_pp_button.set_text (u8"\U0001D18F\U0001D18F");
+-	velocity_p_button.set_text (u8"\U0001D18F");
+-	velocity_mp_button.set_text (u8"\U0001D190\U0001D18F"); //MUSICAL SYMBOL MEZZO (U+1D190)
+-	velocity_mf_button.set_text (u8"\U0001D190\U0001D191");
+-	velocity_f_button.set_text (u8"\U0001D191"); // MUSICAL SYMBOL FORTE (U+1D191)
+-	velocity_ff_button.set_text (u8"\U0001D191\U0001D191");
+-	velocity_fff_button.set_text (u8"\U0001D191\U0001D191\U0001D191");
+-
+-	length_1_button.set_text (u8"\U0001D15D"); // MUSICAL SYMBOL WHOLE NOTE
+-	length_2_button.set_text (u8"\U0001D15E"); // MUSICAL SYMBOL HALF NOTE
+-	length_4_button.set_text (u8"\U0001D15F"); // MUSICAL SYMBOL QUARTER NOTE
+-	length_8_button.set_text (u8"\U0001D160"); // MUSICAL SYMBOL EIGHTH NOTE
+-	length_16_button.set_text (u8"\U0001D161"); // MUSICAL SYMBOL SIXTEENTH NOTE
+-	length_32_button.set_text (u8"\U0001D162"); // MUSICAL SYMBOL THIRTY-SECOND NOTE
+-	length_64_button.set_text (u8"\U0001D163"); // MUSICAL SYMBOL SIXTY-FOURTH NOTE
+-
+-	chord_button.set_text (u8"\U0001D1D6"); // MUSICAL SYMBOL SCANDICUS (customized in ArdourSans)
++	velocity_ppp_button.set_text ("\U0001D18F\U0001D18F\U0001D18F"); //MUSICAL SYMBOL PIANO (U+1D18F)
++	velocity_pp_button.set_text ("\U0001D18F\U0001D18F");
++	velocity_p_button.set_text ("\U0001D18F");
++	velocity_mp_button.set_text ("\U0001D190\U0001D18F"); //MUSICAL SYMBOL MEZZO (U+1D190)
++	velocity_mf_button.set_text ("\U0001D190\U0001D191");
++	velocity_f_button.set_text ("\U0001D191"); // MUSICAL SYMBOL FORTE (U+1D191)
++	velocity_ff_button.set_text ("\U0001D191\U0001D191");
++	velocity_fff_button.set_text ("\U0001D191\U0001D191\U0001D191");
++
++	length_1_button.set_text ("\U0001D15D"); // MUSICAL SYMBOL WHOLE NOTE
++	length_2_button.set_text ("\U0001D15E"); // MUSICAL SYMBOL HALF NOTE
++	length_4_button.set_text ("\U0001D15F"); // MUSICAL SYMBOL QUARTER NOTE
++	length_8_button.set_text ("\U0001D160"); // MUSICAL SYMBOL EIGHTH NOTE
++	length_16_button.set_text ("\U0001D161"); // MUSICAL SYMBOL SIXTEENTH NOTE
++	length_32_button.set_text ("\U0001D162"); // MUSICAL SYMBOL THIRTY-SECOND NOTE
++	length_64_button.set_text ("\U0001D163"); // MUSICAL SYMBOL SIXTY-FOURTH NOTE
++
++	chord_button.set_text ("\U0001D1D6"); // MUSICAL SYMBOL SCANDICUS (customized in ArdourSans)
+ 
+ 	Label* l = manage (new Label);
+ 	l->set_markup ("<b><big>-</big></b>");
+diff --git a/gtk2_ardour/transport_masters_dialog.cc b/gtk2_ardour/transport_masters_dialog.cc
+index 34e0c645b9..66c8319c75 100644
+--- a/gtk2_ardour/transport_masters_dialog.cc
++++ b/gtk2_ardour/transport_masters_dialog.cc
+@@ -575,7 +575,7 @@ TransportMastersWidget::Row::update (Session* s, samplepos_t now)
+ 	bool pos_is_locked = true;
+ 
+ 	string current_str (" --:--:--:--");
+-	string delta_str (u8"\u0394  ----  ");
++	string delta_str ("\u0394  ----  ");
+ 	string age_str ("         ");
+ 
+ 	if (tm->speed_and_position (speed, pos, most_recent, when, now)) {
+diff --git a/gtk2_ardour/trigger_master.cc b/gtk2_ardour/trigger_master.cc
+index 1674578464..d4e2ac9ea6 100644
+--- a/gtk2_ardour/trigger_master.cc
++++ b/gtk2_ardour/trigger_master.cc
+@@ -193,7 +193,7 @@ TriggerMaster::render (ArdourCanvas::Rect const& area, Cairo::RefPtr<Cairo::Cont
+ 		snprintf (font_name, sizeof (font_name), "ArdourSans %d", font_size);
+ 		Pango::FontDescription pfd (font_name);
+ 		layout->set_font_description (pfd);
+-		layout->set_text (u8"\u266b");
++		layout->set_text ("\u266b");
+ 		int tw, th;
+ 		layout->get_pixel_size (tw, th);
+ 		context->move_to (width / 2, height / 2);
+diff --git a/gtk2_ardour/utils.cc b/gtk2_ardour/utils.cc
+index a252254029..3736567693 100644
+--- a/gtk2_ardour/utils.cc
++++ b/gtk2_ardour/utils.cc
+@@ -799,7 +799,7 @@ ARDOUR_UI_UTILS::samples_as_time_string (samplecnt_t s, float rate, bool show_sa
+ 		snprintf (buf, sizeof (buf), "%" PRId64 " spl", s);
+ 	} else if (s < (rate / 1000.f)) {
+ 		/* 0 .. 999 usec */
+-		snprintf (buf, sizeof (buf), u8"%.0f \u00B5s", s * 1e+6f / rate);
++		snprintf (buf, sizeof (buf), "%.0f \u00B5s", s * 1e+6f / rate);
+ 	} else if (s < (rate / 100.f)) {
+ 		/* 1.000 .. 9.999 ms */
+ 		snprintf (buf, sizeof (buf), "%.3f ms", s * 1e+3f / rate);
+diff --git a/libs/ardour/engine_slave.cc b/libs/ardour/engine_slave.cc
+index a19b7ea161..017a350f40 100644
+--- a/libs/ardour/engine_slave.cc
++++ b/libs/ardour/engine_slave.cc
+@@ -123,7 +123,7 @@ Engine_TransportMaster::position_string () const
+ std::string
+ Engine_TransportMaster::delta_string () const
+ {
+-	return string (u8"\u0394     0  ");
++	return string ("\u0394     0  ");
+ }
+ 
+ bool
+diff --git a/libs/ardour/ltc_slave.cc b/libs/ardour/ltc_slave.cc
+index 6f4300ee05..27a6d982d7 100644
+--- a/libs/ardour/ltc_slave.cc
++++ b/libs/ardour/ltc_slave.cc
+@@ -719,7 +719,7 @@ std::string
+ LTC_TransportMaster::delta_string() const
+ {
+ 	if (!_collect || current.timestamp == 0) {
+-		return X_(u8"\u2012\u2012\u2012\u2012");
++		return X_("\u2012\u2012\u2012\u2012");
+ 	} else if ((monotonic_cnt - current.timestamp) > 2 * samples_per_ltc_frame) {
+ 		return _("flywheel");
+ 	} else {
+diff --git a/libs/ardour/midi_clock_slave.cc b/libs/ardour/midi_clock_slave.cc
+index f0f00bc9eb..5ef98aac58 100644
+--- a/libs/ardour/midi_clock_slave.cc
++++ b/libs/ardour/midi_clock_slave.cc
+@@ -429,7 +429,7 @@ MIDIClock_TransportMaster::delta_string() const
+ 	current.safe_read (last);
+ 
+ 	if (last.timestamp == 0 || starting()) {
+-		return X_(u8"\u2012\u2012\u2012\u2012");
++		return X_("\u2012\u2012\u2012\u2012");
+ 	} else {
+ 		return format_delta_time (_current_delta);
+ 	}
+diff --git a/libs/ardour/mtc_slave.cc b/libs/ardour/mtc_slave.cc
+index 0fda413ded..6ba479a40e 100644
+--- a/libs/ardour/mtc_slave.cc
++++ b/libs/ardour/mtc_slave.cc
+@@ -547,7 +547,7 @@ MTC_TransportMaster::delta_string () const
+ 	current.safe_read (last);
+ 
+ 	if (last.timestamp == 0 || reset_pending) {
+-		return X_(u8"\u2012\u2012\u2012\u2012");
++		return X_("\u2012\u2012\u2012\u2012");
+ 	} else {
+ 		return format_delta_time (_current_delta);
+ 	}
+diff --git a/libs/ardour/transport_master.cc b/libs/ardour/transport_master.cc
+index db11508850..2c8b12c9e2 100644
+--- a/libs/ardour/transport_master.cc
++++ b/libs/ardour/transport_master.cc
+@@ -524,7 +524,7 @@ TimecodeTransportMaster::set_fr2997 (bool yn)
+ }
+ 
+ /* used for delta_string(): (note: \u00B1 is the plus-or-minus sign) */
+-#define PLUSMINUS(A) (((A) < 0) ? "-" : (((A) > 0) ? "+" : u8"\u00B1"))
++#define PLUSMINUS(A) (((A) < 0) ? "-" : (((A) > 0) ? "+" : "\u00B1"))
+ #define LEADINGZERO(A) ((A) < 10 ? "    " : (A) < 100 ? "   " : (A) < 1000 ? "  " : (A) < 10000 ? " " : "")
+ 
+ std::string
+@@ -535,13 +535,13 @@ TransportMaster::format_delta_time (sampleoffset_t delta) const
+ 		samplecnt_t sr = _session->sample_rate();
+ 		if (abs (_current_delta) >= sr) {
+ 			int secs = rint ((double) delta / sr);
+-			snprintf(buf, sizeof(buf), u8"\u0394%s%s%d s", LEADINGZERO(abs(secs)), PLUSMINUS(-secs), abs(secs));
++			snprintf(buf, sizeof(buf), "\u0394%s%s%d s", LEADINGZERO(abs(secs)), PLUSMINUS(-secs), abs(secs));
+ 			buf[63] = '\0';
+ 			return std::string(buf);
+ 		}
+ 	}
+ 	/* left-align sign, to make it readable when decimals jitter */
+-	snprintf (buf, sizeof(buf), u8"\u0394%s%s%lldsm", PLUSMINUS(-delta), LEADINGZERO(::llabs(delta)), ::llabs(delta));
++	snprintf (buf, sizeof(buf), "\u0394%s%s%lldsm", PLUSMINUS(-delta), LEADINGZERO(::llabs(delta)), ::llabs(delta));
+ 	buf[63] = '\0';
+ 	return std::string(buf);
+ }
+diff --git a/libs/ardour/triggerbox.cc b/libs/ardour/triggerbox.cc
+index 345a791294..108346b9d1 100644
+--- a/libs/ardour/triggerbox.cc
++++ b/libs/ardour/triggerbox.cc
+@@ -146,7 +146,7 @@ ARDOUR::cue_marker_name (int32_t index)
+ 
+ 	if (index == CueRecord::stop_all) {
+ 		/* this is a reasonable "stop" icon */
+-		return string (X_(u8"\u25a1"));
++		return string (X_("\u25a1"));
+ 	}
+ 
+ 	switch (index) {
+diff --git a/libs/panners/vbap/vbap.cc b/libs/panners/vbap/vbap.cc
+index 12768d0f66..9369a87e62 100644
+--- a/libs/panners/vbap/vbap.cc
++++ b/libs/panners/vbap/vbap.cc
+@@ -399,13 +399,13 @@ VBAPanner::value_as_string (std::shared_ptr<const AutomationControl> ac) const
+ 
+ 	switch (ac->parameter ().type ()) {
+ 		case PanAzimuthAutomation: /* direction */
+-			return string_compose (_ (u8"%1\u00B0"), (int(rint (val * 360.0)) + 180) % 360);
++			return string_compose (_ ("%1\u00B0"), (int(rint (val * 360.0)) + 180) % 360);
+ 
+ 		case PanWidthAutomation: /* diffusion */
+ 			return string_compose (_ ("%1%%"), (int)floor (100.0 * fabs (val)));
+ 
+ 		case PanElevationAutomation: /* elevation */
+-			return string_compose (_ (u8"%1\u00B0"), (int)floor (90.0 * fabs (val)));
++			return string_compose (_ ("%1\u00B0"), (int)floor (90.0 * fabs (val)));
+ 
+ 		default:
+ 			return _ ("unused");
+diff --git a/libs/surfaces/mackie/gui.cc b/libs/surfaces/mackie/gui.cc
+index bfa20e9fd4..7ab744a49c 100644
+--- a/libs/surfaces/mackie/gui.cc
++++ b/libs/surfaces/mackie/gui.cc
+@@ -549,7 +549,7 @@ MackieControlProtocolGUI::refresh_function_key_editor ()
+ 
+ 		Glib::RefPtr<Gtk::Action> act;
+ 		string action;
+-		const string defstring = u8"\u2022";
++		const string defstring = "\u2022";
+ 
+ 		/* We only allow plain bindings for Fn keys. All others are
+ 		 * reserved for hard-coded actions.
+@@ -698,7 +698,7 @@ MackieControlProtocolGUI::action_changed (const Glib::ustring &sPath, const Tree
+ 			   within the model.
+ 			*/
+ 			if (remove) {
+-				Glib::ustring dot = u8"\u2022";
++				Glib::ustring dot = "\u2022";
+ 				(*row).set_value (col.index(), dot);
+ 			} else {
+ 				(*row).set_value (col.index(), act->get_label());
+diff --git a/libs/surfaces/push2/scale.cc b/libs/surfaces/push2/scale.cc
+index 6477e932cf..c360f063f3 100644
+--- a/libs/surfaces/push2/scale.cc
++++ b/libs/surfaces/push2/scale.cc
+@@ -52,13 +52,13 @@ row_interval_string (const Push2::RowInterval row_interval, const bool inkey)
+ {
+ 	switch (row_interval) {
+ 	case Push2::Third:
+-		return _(u8"3rd \u2191");
++		return _("3rd \u2191");
+ 	case Push2::Fourth:
+-		return _(u8"4th \u2191");
++		return _("4th \u2191");
+ 	case Push2::Fifth:
+-		return _(u8"5th \u2191");
++		return _("5th \u2191");
+ 	case Push2::Sequential:
+-		return inkey ? _(u8"Octave \u2191") : _(u8"Sequential \u2191");
++		return inkey ? _("Octave \u2191") : _("Sequential \u2191");
+ 	}
+ 
+ 	return "";
+@@ -67,7 +67,7 @@ row_interval_string (const Push2::RowInterval row_interval, const bool inkey)
+ static const char*
+ column_interval_string (const bool inkey)
+ {
+-	return inkey ? _(u8"Scale \u2192") : _(u8"Semitone \u2192");
++	return inkey ? _("Scale \u2192") : _("Semitone \u2192");
+ }
+ 
+ ScaleLayout::ScaleLayout (Push2& p, Session & s, std::string const & name)
+@@ -184,19 +184,19 @@ ScaleLayout::ScaleLayout (Push2& p, Session & s, std::string const & name)
+ 			t->set (S_("Note|F"));
+ 			break;
+ 		case 2:
+-			t->set (S_(u8"Note|B\u266D/A\u266F"));
++			t->set (S_("Note|B\u266D/A\u266F"));
+ 			break;
+ 		case 3:
+-			t->set (S_(u8"Note|E\u266D/D\u266F"));
++			t->set (S_("Note|E\u266D/D\u266F"));
+ 			break;
+ 		case 4:
+-			t->set (S_(u8"Note|A\u266D/G\u266F"));
++			t->set (S_("Note|A\u266D/G\u266F"));
+ 			break;
+ 		case 5:
+-			t->set (S_(u8"Note|D\u266D/C\u266F"));
++			t->set (S_("Note|D\u266D/C\u266F"));
+ 			break;
+ 		case 6:
+-			t->set (S_(u8"Note|G\u266D/F\u266F"));
++			t->set (S_("Note|G\u266D/F\u266F"));
+ 			break;
+ 		}
+ 
+diff --git a/libs/surfaces/us2400/gui.cc b/libs/surfaces/us2400/gui.cc
+index 01ea8e4473..6aaa3bac17 100644
+--- a/libs/surfaces/us2400/gui.cc
++++ b/libs/surfaces/us2400/gui.cc
+@@ -412,7 +412,7 @@ US2400ProtocolGUI::refresh_function_key_editor ()
+ 
+ 		Glib::RefPtr<Gtk::Action> act;
+ 		string action;
+-		const string defstring = u8"\u2022";
++		const string defstring = "\u2022";
+ 
+ 		/* We only allow plain bindings for Fn keys. All others are
+ 		 * reserved for hard-coded actions. */
+@@ -473,7 +473,7 @@ US2400ProtocolGUI::action_changed (const Glib::ustring &sPath, const TreeModel::
+ 			 * within the model.
+ 			 */
+ 			if (remove) {
+-				Glib::ustring dot = u8"\u2022";
++				Glib::ustring dot = "\u2022";
+ 				(*row).set_value (col.index(), dot);
+ 			} else {
+ 				(*row).set_value (col.index(), act->get_label());
