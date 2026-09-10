@@ -2,7 +2,7 @@
   "app-id": "org.ardour.Ardour",
   "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "25.08",
+  "runtime-version": "26.08",
   "command": "ardour9",
   "rename-appdata-file": "ardour9.appdata.xml",
   "rename-desktop-file": "ardour9.desktop",
@@ -20,7 +20,7 @@
     "--share=network",
     "--env=ALSA_CONFIG_PATH=",
     "--own-name=org.freedesktop.ReserveDevice1.*",
-    "--filesystem=xdg-run/pipewire-0",
+    "--filesystem=xdg-run/pipewire-0:ro",
     "--env=TMPDIR=/var/tmp",
     "--env=LXVST_PATH=/app/extensions/Plugins/vst",
     "--env=VST3_PATH=/app/extensions/Plugins/vst3",
@@ -29,7 +29,7 @@
   "add-extensions": {
     "org.freedesktop.LinuxAudio.Plugins": {
       "directory": "extensions/Plugins",
-      "version": "25.08",
+      "version": "26.08",
       "add-ld-path": "lib",
       "merge-dirs": "ladspa;lv2;vst;vst3",
       "subdirectories": true,
@@ -201,7 +201,7 @@
         "*.so"
       ],
       "build-options": {
-          "cflags": "-Wno-error=stringop-truncation -Wno-error=maybe-uninitialized",
+          "cflags": "-Wno-error=discarded-qualifiers -Wno-error=stringop-truncation -Wno-error=maybe-uninitialized",
           "cxxflags": "-Wno-error=stringop-truncation -Wno-error=maybe-uninitialized"
       },
       "sources": [
@@ -485,7 +485,7 @@
         "*.so"
       ],
       "build-options": {
-        "cflags": "-Wno-error=deprecated-declarations"
+        "cflags": "-Wno-error=deprecated-declarations -Wno-error=discarded-qualifiers"
       },
       "config-opts": [
         "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -600,7 +600,10 @@
         },
         {
           "type": "patch",
-          "path": "patches/ardour7-7.2-appdata-flatpak.patch"
+          "paths": [
+              "patches/ardour7-7.2-appdata-flatpak.patch",
+              "patches/ardour-cpp-fixes.patch"
+          ]
         }
       ]
     }
